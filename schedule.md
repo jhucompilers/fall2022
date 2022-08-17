@@ -27,9 +27,9 @@ gray</span> are tentative.
 
 Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Topic/Slides | Reading | Assignment
 ------------------ | ------------ | ------- | ----------
-Aug 29 | Topic TBD |  | 
-Aug 31 | Topic TBD |  | 
-Sep 5 | Topic TBD |  | 
+Aug 29 | [Course intro, lexical analysis](lectures/lecture01-public.pdf) |  | 
+Aug 31 | [Context-free grammars, parse trees, ambiguity, recursive descent parsing](lectures/lecture02-public.pdf) | EaC 3.1–3.2 | 
+Sep 5 | *Labor day, no classes* |  | 
 Sep 7 | Topic TBD |  | 
 Sep 12 | Topic TBD |  | 
 Sep 14 | Topic TBD |  | 

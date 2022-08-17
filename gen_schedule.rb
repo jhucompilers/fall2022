@@ -54,9 +54,11 @@ CSV.foreach('schedule.csv') do |row|
 
     print date
 
-    print " | #{topic}"
     if slides != ''
-      print ": [slides](#{slides})"
+      print " | [#{topic}](#{slides})"
+    else
+      print " | #{topic}"
+      #print ": [slides](#{slides})"
     end
 
     if example_code != ''
