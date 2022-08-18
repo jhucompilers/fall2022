@@ -22,9 +22,9 @@ Readings:
 * F&amp;B is Levine, [Flex and Bison](https://www.oreilly.com/library/view/flex-bison/9780596805418/)
 
 *Note*: The schedule will become more concrete as the semester
-progresses. Expect it to be updated frequently.  Tentative topics are
-marked <span class="tentative">in a lighter italic font</span>: expect
-that these could change.
+progresses. Expect it to be updated frequently.  Tentative topics,
+readings, assignments, etc. are marked <span class="tentative">in
+a lighter italic font</span>: expect that these could change.
 
 This page lists topics, readings, and has links to lecture slides.
 It also lists assignment due dates.  Dates <span class="tentative">in
