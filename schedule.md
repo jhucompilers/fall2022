@@ -33,14 +33,14 @@ Sep 5 | *Labor day, no classes* |  |
 Sep 7 | [Limitations of recursive descent, precedence climbing](lectures/lecture03-public.pdf) | EaC 3.3 | 
 Sep 12 | [ASTs, interpreters](lectures/lecture04-public.pdf) |  | 
 Sep 14 | <span class='tentative'>Interpreter runtime structures</span> |  | <span class='tentative'>A1 MS1 due<br>(Fri 9/16)</span>
-Sep 19 | <span class='tentative'>Lexical analyzer generators, lex/flex</span> | EaC 2.1–2.5, F&amp;B Chapters 1–2 | 
-Sep 21 | <span class='tentative'>Parser generators, yacc/bison</span> |  | <span class='tentative'>A1 MS2 due<br>(Fri 9/23)</span>
-Sep 26 | <span class='tentative'>LL(1) parsing</span> |  | 
+Sep 19 | <span class='tentative'>Lexical analyzer generators, lex/flex</span> | <span class='tentative'>EaC 2.1–2.5, F&amp;B Chapters 1–2</span> | 
+Sep 21 | <span class='tentative'>Parser generators, yacc/bison</span> | <span class='tentative'>F&amp;B Chapter 3</span> | <span class='tentative'>A1 MS2 due<br>(Fri 9/23)</span>
+Sep 26 | <span class='tentative'>LL(1) parsing</span> | <span class='tentative'>EaC 3.3</span> | 
 Sep 28 | <span class='tentative'>Bottom-up parsing, Exam 1 review</span> |  | 
 Oct 3 | <span class='tentative'>Exam 1</span> |  | 
-Oct 5 | <span class='tentative'>Context-sensitive analysis, attribute grammars</span> | EaC 4.1–4.4 | 
+Oct 5 | <span class='tentative'>Context-sensitive analysis, attribute grammars</span> | <span class='tentative'>EaC 4.1–4.4</span> | 
 Oct 10 | <span class='tentative'>Compiler project intro, ASTs and symbol tables</span> |  | 
-Oct 12 | <span class='tentative'>Intermediate representations</span> | EaC 5.1–5.5 | 
+Oct 12 | <span class='tentative'>Intermediate representations</span> | <span class='tentative'>EaC 5.1–5.5</span> | 
 Oct 17 | <span class='tentative'>Topic TBD</span> |  | 
 Oct 19 | <span class='tentative'>Topic TBD</span> |  | 
 Oct 20–21 | **Fall break (no classes)** |  | 
