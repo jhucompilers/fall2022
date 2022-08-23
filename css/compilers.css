@@ -105,9 +105,12 @@ code.cmd {
 }
 */
 
-div.highlighter-rouge {
+div.indented, div.highlighter-rouge {
 	margin-left: 2em;
 	margin-right: 2em;
+}
+
+div.highlighter-rouge {
 	background-color: #eee;
 	border: 1px solid #ccc;
 	padding: 0 1em;
