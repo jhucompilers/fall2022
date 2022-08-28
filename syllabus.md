@@ -125,7 +125,7 @@ The [Assignments](assignments.html) page lists assignments and their due dates.
 
 The [Schedule](schedule.html) lists the topics and readings for each day.
 
-The course's Blackboard page (under **Panopto**) hosts the lecture videos.
+The course's Canvas page (under **Panopto Video**) hosts the lecture videos.
 
 ## Ethics
 
