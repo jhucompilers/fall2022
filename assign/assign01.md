@@ -285,21 +285,21 @@ git clone https://github.com/jhucompilers/fall2022-tests.git compilers-fall2022-
 We will refer to the directory name of your clone of the test repository as
 `$TEST_REPO`.
 
-To run tests, first set the `ASSIGN01_MS1_DIR` environment variable to
+To run tests, first set the `ASSIGN01_DIR` environment variable to
 the directory containing your program (and in particular, the `minilang`
 executable):
 
 ```
-export ASSIGN01_MS1_DIR=~/compilers/assign01
+export ASSIGN01_DIR=~/compilers/assign01
 ```
 
 The above command assumes that `~/compilers/assign01` is the directory containing
 your work. Adjust this as necessary.
 
-Next, change directory to `assign01-ms1` subdirectory of the test repository:
+Next, change directory to `assign01` subdirectory of the test repository:
 
 ```
-cd $TEST_REPO/assign01-ms1
+cd $TEST_REPO/assign01
 ```
 
 To run a single test, use the `run_test.rb` script. For example,
@@ -326,7 +326,7 @@ the test program. If no error output is expected, this file can be
 omitted.
 
 Here is an example showing how to create a very simple test (these
-commands assume your shell is in the `$TEST_REPO/assign01-ms1` directory):
+commands assume your shell is in the `$TEST_REPO/assign01` directory):
 
 ```
 echo "1 + 2;" > input/example01.in
