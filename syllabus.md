@@ -12,7 +12,7 @@ category: "syllabus"
 
 ## Instructor
 
-[David Hovemeyer](https://www.cs.jhu.edu/~daveho)
+[David Hovemeyer](https://www.cs.jhu.edu/~daveho) &lt;<daveho@cs.jhu.edu>&gt;
 
 Office: Malone 240A
 
@@ -20,7 +20,14 @@ Office hours: T/Th 1-3pm, or by arrangement, via Zoom (see Courselore for URL)
 
 ## Course Assistants
 
-TBD
+Head course assistant:
+
+* Akshay Kaikottil &lt;<akaikot1@jhu.edu>&gt;
+
+Course assistants:
+
+* Shubhankar Mehrotra &lt;<smehrot3@jhu.edu>&gt;
+* Ricky Cheng &lt;<rcheng15@jhu.edu>&gt;
 
 ## Meeting
 
