@@ -26,7 +26,6 @@ Head course assistant:
 
 Course assistants:
 
-* Shubhankar Mehrotra &lt;<smehrot3@jhu.edu>&gt;
 * Ricky Cheng &lt;<rcheng15@jhu.edu>&gt;
 
 ## Meeting
