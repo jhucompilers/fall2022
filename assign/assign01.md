@@ -3,15 +3,9 @@ layout: default
 title: "Assignment 1"
 ---
 
-Due: *TBD*
+Due: Friday, Sep 16 by 11pm Baltimore time
 
 # Interpreter part 1: expression evaluation
-
-<div style="font-style: italic;">
-Note: this assignment description is incomplete, and will be updated
-in the near future. However, it contains enough information that
-you could get started on the assignment.
-</div>
 
 In this assignment you will implement an interpreter which serves
 as a calculator, reading a sequence of statements containing expressions
@@ -29,7 +23,7 @@ unzip assign01.zip
 These commands will create a directory called `assign01` which
 contains the starter code.
 
-## Scanner changes
+## Lexical analyzer changes
 
 You will need to implement changes to the lexical analyzer (in `lexer.cpp`,
 as well as `token.h`) to add the following new tokens:
@@ -51,7 +45,7 @@ Note that the two-character tokens where the first character is also
 a valid token — for example, `>=` — will require special handling.
 You might want to add new helper functions to the lexer.
 
-## Grammar changes
+## Parser changes
 
 These are the grammar productions implemented in the starter code
 (which is adapted from the [astdemo](https://github.com/daveho/astdemo)
@@ -207,8 +201,9 @@ UNIT
 ```
 
 Note that there is no inherently correct or incorrect form for the AST
-corresponding to a particular input. You should arrange the code in the
-parser to construct an AST that
+corresponding to a particular input, other than representing the
+semantic properties of the input (such as order of evaluation)
+correctly. You should arrange the code in the parser to construct an AST that
 
 1. Embodies the essential information about the input that wil be
    needed for interpretation, and
@@ -273,6 +268,9 @@ Operator | How to evaluate
 `!=`     | 1 if operands are not equal, 0 otherwise
 
 ## Testing
+
+*(Note: the test repository is currently incompletely. We will be updating
+it to add many more tests in the near future.)*
 
 The [compilers-fall2022-tests](https://github.com/jhucompilers/fall2022-tests)
 repository has some tests you can use to check your implementation.
@@ -343,8 +341,32 @@ Test passed!
 
 ## Non-functional requirements
 
-TODO
+We expect your code to be clean, readable, well-designed, and
+(reasonably) efficient.  Please refer to the
+[design, coding style, and efficency](design.html) guidelines.
+
+We also expect your code to be free of runtime errors such as
+uses of uninitialized variables, out of bounds array accesses,
+and memory leaks. You can and should use `valgrind` when testing
+your code to check for such errors. We also highly recommend using
+[`std::unique_ptr`](https://en.cppreference.com/w/cpp/memory/unique_ptr)
+to manage pointers to dynamically-allocated objects (to ensure
+that they are deallocated when no longer needed.)
+
+You should submit a `README.txt` file that briefly explains your
+implementation. A paragraph or two is sufficient. If you used any
+interesting implementation techniques, let us know about them.
+Also, if there are any limitations such as features that you weren't
+able to get working, you can document them here.
 
 ## Submitting
 
-TODO
+To submit, create a zipfile with your code, the `Makefile`, and the
+`README.txt`. Suggested command:
+
+```
+zip -9r solution.zip *.h *.cpp Makefile README.txt
+```
+
+Upload the zipfile (i.e., `solution.zip`) to [Gradescope](https://www.gradescope.com)
+as **Assignment 1**.

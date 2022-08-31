@@ -8,6 +8,33 @@ title: "Design and coding style expectations"
 Assignments are graded mostly on functional correctness.  However, a portion of each assignment
 grade (typically 10%) will be allocated to design, coding style, and efficiency.
 
+## Correctness
+
+Obviously, you should strive to make your code *correct*, i.e., free from
+bugs.
+
+We expect your code to be free of memory errors, such as
+
+* use of uninitialized variables
+* invalid pointer dereferences
+* out of bounds array accesses
+* double frees
+* memory leaks
+
+We *strongly* recommend that you use `valgrind` to test your code
+to check for memory errors. You should expect that we will be using
+`valgrind` on your code as part of assignment grading.
+
+You can significantly ease the burden of ensuring that dynamically-allocated
+objects are deallocated by using "smart pointer" classes such
+as [`std::unique_ptr`](https://en.cppreference.com/w/cpp/memory/unique_ptr).
+
+## Compiler flags
+
+Make sure that at a minimum, you are using the `-Wall` compiler option
+to enable the most important compiler warnings. We expect your code to
+compile cleanly (no compiler warnings.)
+
 ## Coding style
 
 "Coding style" refers to things like
@@ -40,9 +67,9 @@ centered around a major data type (such as a struct type or class) and operation
 that can be performed on that type (functions/methods.)  To the extent possible,
 distinct modules should be cleanly separated.  Each module should have a well-factored
 set of public operations, and should not expose internal implementation details.
-The "interfaces and implementations" approach used in assignments 1 and 2 is,
-in general, one way to achieve this.  But, code using cleanly-written C++ classes
-with private data is also fine.
+We strongly recommend structuring your code using C++ classes, and encapsulate
+all private implementation details (member variables, helper functions)
+by making them `private`.
 
 ## Efficiency
 
