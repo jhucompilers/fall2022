@@ -3,7 +3,35 @@ layout: default
 title: "Assignment 1"
 ---
 
-Due: Friday, Sep 16 by 11pm Baltimore time
+**Due**: Friday, Sep 16 by 11pm Baltimore time
+
+*Update 9/5*: The skeleton file ([assign01.zip](assign01.zip)) has
+been updated to fix a bug in the `Lexer::fill` member function.
+This function should have the following code:
+
+```c++
+void Lexer::fill(int how_many) {
+  assert(how_many > 0);
+  while (!m_eof && int(m_lookahead.size()) < how_many) {
+    Node *tok = read_token();
+    if (tok != nullptr) {
+      m_lookahead.push_back(tok);
+    }
+  }
+}
+```
+
+Also, the [Parser changes](#parser-changes) section has been updated to
+mention the need to change the
+
+<code class='highlighter-rouge'>F &rarr; ( E )</code>
+
+grammar rule to
+
+<code class='highlighter-rouge'>F &rarr; ( A )</code>
+
+Finally, the [test repository](https://github.com/jhucompilers/fall2022-tests)
+has been updated with some automated tests.
 
 # Interpreter part 1: expression evaluation
 
@@ -101,6 +129,18 @@ to
 
 <div class="highlighter-rouge"><pre>
 Stmt &rarr; A ;
+</pre></div>
+
+You will also need to change the production
+
+<div class="highlighter-rouge"><pre>
+F &rarr; ( E )
+</pre></div>
+
+to
+
+<div class="highlighter-rouge"><pre>
+F &rarr; ( A )
 </pre></div>
 
 You will need to add new AST node types to `ast.h` and `ast.cpp`
@@ -269,10 +309,7 @@ Operator | How to evaluate
 
 ## Testing
 
-*(Note: the test repository is currently incompletely. We will be updating
-it to add many more tests in the near future.)*
-
-The [compilers-fall2022-tests](https://github.com/jhucompilers/fall2022-tests)
+The [fall2022-tests](https://github.com/jhucompilers/fall2022-tests)
 repository has some tests you can use to check your implementation.
 First, clone the test repository:
 
