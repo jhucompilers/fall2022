@@ -27,6 +27,18 @@ Regardless of which approach you use, be sure to use version control
 (e.g., [Git](https://git-scm.com/)) to record and preserve your
 development progress.
 
+## Grading criteria
+
+The grading criteria are as follows:
+
+* Implementation of functions and function calls: 89%
+* Arrays: 0.5%
+* Lambdas: 0.5%
+* Design and coding style: 10%
+
+Note that it is assumed that all of the functionality from
+[Assignment 1](assign01.html) works correctly.
+
 ## Lexical analyzer changes
 
 You will need to add the following new keyword tokens:
