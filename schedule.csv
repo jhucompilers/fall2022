@@ -4,7 +4,7 @@ Aug 31,"Context-free grammars, parse trees, ambiguity, recursive descent parsing
 Sep 5,"*Labor day, no classes*",
 Sep 7,"Limitations of recursive descent, precedence climbing",lectures/lecture03-public.pdf,,EaC 3.3,,
 Sep 12,"ASTs, interpreters",lectures/lecture04-public.pdf,,
-Sep 14,"<span class='tentative'>Interpreter runtime structures</span>",,,,"<span class='tentative'>A1 due<br>Fri 9/16</span>"
+Sep 14,"Interpreter runtime structures",lectures/lecture05-public.pdf,,,"A1 due<br>Fri 9/16"
 Sep 19,"<span class='tentative'>Lexical analyzer generators, lex/flex</span>",,,"<span class='tentative'>EaC 2.1–2.5, F&amp;B Chapters 1–2</span>",
 Sep 21,"<span class='tentative'>Parser generators, yacc/bison</span>",,,"<span class='tentative'>F&amp;B Chapter 3</span>",
 Sep 26,"<span class='tentative'>LL(1) parsing</span>",,,"<span class='tentative'>EaC 3.3</span>"
