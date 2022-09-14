@@ -3,6 +3,9 @@ layout: default
 title: "Assignment 2"
 ---
 
+*Note: this assignment description is still under development. Details
+could change.*
+
 **Due**: TBD
 
 # Interpreter part 2: Functions, control structures, runtime

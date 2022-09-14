@@ -13,4 +13,7 @@ All assignments are individual assignments unless specified otherwise.
 Assignment | Due
 ---------- | ---
 [Assignment 1](assign/assign01.html) | Friday, Sep 16 by 11pm
+
+<!--
 [Assignment 2](assign/assign02.html) | TBD
+-->
