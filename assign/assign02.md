@@ -3,8 +3,12 @@ layout: default
 title: "Assignment 2"
 ---
 
-*Note: this assignment description is still under development. Details
-could change.*
+*Note: this is a preliminary version of the assignment description, which
+has information about required lexer and parser changes, but is still
+missing most details about semantics such as implementing functions.
+It will be updated. Note that the [Lecture 5 slides](../lectures/lecture05-public.pdf)
+do have a relatively detailed presentation of functions and function
+calls.*
 
 **Due**: TBD
 
@@ -34,9 +38,10 @@ development progress.
 
 The grading criteria are as follows:
 
-* Implementation of functions and function calls: 89%
-* Arrays: 0.5%
-* Lambdas: 0.5%
+* Implementation of functions and function calls (including intrinsic functions): 83%
+* Arrays: 4%
+* Strings: 2%
+* Lambdas: 1%
 * Design and coding style: 10%
 
 Note that it is assumed that all of the functionality from
@@ -185,3 +190,31 @@ UNIT
 
 This is intended as an example. You may structure the AST in whatever way
 seems most appropriate.
+
+## Semantics of functions and function calls
+
+*Coming soon!*
+
+## Values and reference counting of dynamic representations
+
+*Coming soon!*
+
+## Intrinsic functions
+
+*Coming soon!*
+
+## Arrays and array intrinsic functions
+
+*Coming soon!*
+
+## Strings and string intrinsic functions
+
+*Coming soon!*
+
+## Lambdas (anonymous functions)
+
+*Coming soon!*
+
+## Submitting
+
+*Coming soon!*

@@ -31,5 +31,10 @@ and/or Gradescope.
 
 ## News
 
+* **Sep 15** — [A preliminary specification of Assignment 2](assign/assign02.html) is available.
+  It specifies the required lexer and parser changes needed to support functions, but
+  does not yet have a description of their semantics (although the
+  [Lecture 5 slides](lectures/lecture05.pdf) have a fairly detailed presentation of
+  the important concepts.)
 * **Aug 31** — [Assignment 1](assign/assign01.html) is due **Friday, Sep 16** by 11pm.
 * **Aug 29** — Welcome!
