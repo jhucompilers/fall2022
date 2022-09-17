@@ -446,13 +446,39 @@ them by value, copy them by value, etc.
 
 ### Arrays and array intrinsic functions
 
-*Coming soon!*
+Note: implementing arrays and the array intrinsic functions is only worth
+4% of the assignment grade.  You should only add support for arrays after
+you have completely implemented control flow, functions, and the
+required `print`, `println`, and `readint` intrinsic functions.
+
+It is useful for a programming language to support some kind of
+collection data structure. Arrays or vectors are one very useful
+collection data type.
+
+Support for arrays can be added by introducing ararys as a new kind
+of dynamic value (supported by an `Array` class inheriting from `ValRep`),
+and the following intrinsic functions:
+
+Name   | Num args | Arg types | Description
+------ | -------- | --------- | -----------
+`mkarr`| varies   | varies        | returns an array value in which each argument value is an element value of the array
+`len`  | 1        | array         | when passed a single array value, returns an integer value indicating the number of elements in the array value
+`get`  | 2        | array, integer      | returns the value of the element at the given integer index in the specified array
+`set`  | 3        | array, integer, any | sets element at specified index to the value specified by the third argument; returns the stored value
+`push` | 2        | array, any          | appends specified value (second argument) to the end of the specified array, increasing its length by 1
+`pop`  | 1        | array               | removes and returns last element of array, decreasing its length by 1; raises `EvaluationError` if the array is empty
+
+If an array intrinsic function is passed the wrong number and/or types of arguments, it should raise an `EvaluationError`.
 
 ### Strings and string intrinsic functions
 
 *Coming soon!*
 
 ### Lambdas (anonymous functions)
+
+*Coming soon!*
+
+## Testing
 
 *Coming soon!*
 
