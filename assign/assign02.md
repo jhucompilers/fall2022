@@ -254,6 +254,10 @@ In the code above, `env` is a pointer to the environment in which
 the function is created, which for a top-level function will be the
 global environment.
 
+Binding the name of the function to its value is just like
+a variable assignment, and in fact, in our language functions
+are just variables whose initial value is a user-defined function.
+
 When a function call is evaluated,
 the name of the called function is looked up in the current
 environment (and recursively in parent environments if
@@ -333,13 +337,57 @@ body environment.)
 
 ### Intrinsic functions
 
-*Coming soon!*
+An *intrinsic function* is one that is built into the interpreter,
+rather than being defined by the interpreted program.
+
+There are many ways an interpreter could implement intrinsic functions.
+The one suggested by the starter code is to simply implement
+them as C++ functions in the interpreter program. For example,
+here possible implementation of the required `print` function:
+
+```c++
+Value Interpreter::intrinsic_print(Value args[], unsigned num_args,
+                                   const Location &loc, Interpreter *interp) {
+  if (num_args != 1)
+    EvaluationError::raise(loc, "Wrong number of arguments passed to print function");
+  printf("%s", args[0].as_str().c_str());
+  return Value();
+}
+```
+
+You will probably want your implementations of intrinsic functions to be `static`
+member functions. They definitely should not be non-static member functions.
+
+The names of the intrinsic functions should be bound to their implementations
+in the global environment before the interpreted program is executed.
+This could look something like the following:
+
+```c++
+global_env->bind("print", Value(&intrinsic_print));
+```
+
+This assumes that `global_env` is a pointer to the global environment
+object, and that your `Environment` class has a member function called
+`bind` which creates a variable and immediately associates it with
+a `Value`.
+
+You will need to implement the following intrinsic functions.
+
+`print`: prints the textual representation of a single value to standard
+output. A possible implementation of this function is shown above.
+It should raise an `EvaluationError` if it is not passed exactly
+one argument. The `Value::as_str` member function should be used
+to get the string value to print.
+
+`println`: like `print`, but prints a newline ("`\n"`) character
+after the textual representation of the printed value.
+
+`readint`: Reads a single integer value from standard input and
+returns it. It should not be passed any arguments, and should raise
+`EvaluationError` if it is passed any arguments. You should use
+`scanf` to read the integer input value.
 
 ### Values and reference counting of dynamic representations
-
-*Coming soon!*
-
-### Intrinsic functions
 
 *Coming soon!*
 
