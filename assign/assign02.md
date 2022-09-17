@@ -3,7 +3,10 @@ layout: default
 title: "Assignment 2"
 ---
 
-**Due**: TBD
+**Due dates**:
+
+* Milestone 1 due **Mon, Sept 26** by 11pm Baltimore time
+* Milestone 2 due **Mon, Oct 3** by 11pm Baltimore time
 
 # Interpreter part 2: Functions, control structures, runtime
 
@@ -40,6 +43,17 @@ The grading criteria are as follows:
 
 Note that it is assumed that all of the functionality from
 [Assignment 1](assign01.html) works correctly.
+
+Note that strings and lambdas represent only 3% of the grade for the assignment,
+so it is completely reasonable for you to treat these parts of the
+assignemnt as optional.
+
+### Milestones
+
+There are two milestones:
+
+* Milestone 1: control flow works correctly
+* Milestone 2: all functionality is implemented
 
 ## Lexical analyzer changes
 
@@ -533,12 +547,154 @@ string should simply reflect the sequence of characters in the string value.
 
 ### Lambdas (anonymous functions)
 
-*Coming soon!*
+Note: support for lambdas is only 1% of the assignment grade. We
+**strongly** recommend that you if you choose to implement lambdas,
+that you don't work on them until all other features are completely
+working and tested.  Even if you do decide to work on lambdas, be aware
+that supporting them will be a very intrusive change to the interpreter,
+and you should probably work on a branch, or take other steps to allow
+you to easily revert your code back to its original pre-lambda state.
+
+A *lambda*, a.k.a. *closure*, is an anonymous function. Many languages, including
+JavaScript, C++, Java, Python, Ruby, and more or less every functional languages,
+support lambdas in some form.
+
+Lambdas should be supported by adding the following rule to your parser:
+
+```
+F → function ( OptPList ) { SList }
+```
+
+In principle, supporting lambdas is very simply. They are simply functions
+created "on-the-fly" as values, with the current evaluation environment
+as their parent environment.
+
+The tricky aspect of lambdas is that the evaluation environment is typically
+the environment created to evaluate a call to the function that created the
+lambda value. For example:
+
+```
+function mkadd(n) {
+  function(x) { x + n; };
+}
+
+var add1;
+add1 = mkadd(1);
+add1(2);
+```
+
+The result of this program is 3. The `mkadd` function returns a lambda
+(anonymous function) which returns the sum of
+
+* its parameter `x`, and
+* the value of the parameter `n` of the call to `mkadd`
+  which created the lambda
+
+The tricky aspect of lambdas is that they must have access to variables
+defined in the environment in which they were created. In the case of
+an environment associated with a function call, the problem is that
+the lambda value will "outlive" the duration of the function which
+created it, meaning that retaining a pointer to the environment(s)
+created for the evaluation of that function will result in the lambda
+containing a pointer to an environment which no longer exists.
+
+There are various solutions to this problem. One would be to have
+the lambda copy the values of variables it will use.  This would require
+the interpreter to analyze the body of each lambda to determine which
+"free" variables it uses, and where they will be defined when
+the lambda is created.
+
+The solution we will suggest is to make `Environment` a reference counted
+dynamic representation type, similar to `Function`, `Array`, `String`,
+etc. The interpreted program will not actually use environment values
+directly. However, anywhere the interpreter needs to use an environment,
+it will use a `Value` as a smart pointer to ensure that the environment
+object is properly reference counted. This means that everywhere
+the interpreter was referring to a current environment object via
+a pointer (`Environment *env`), it will now need to use a `Value`
+to wrap the environment (`Value env`).  This also means that code
+calling functions on the current environment via a pointer
+(`env->lookup(var_name)`) will need to extract the pointer to the
+environment object from the value wrapping it (`env.get_env()->lookup(var_name)`).
+
+This change will also mean that rather than allocating an environment
+as a local variable,
+
+```c++
+Environment block_env(env);
+```
+
+you will need to dynamically-allocate an environment object and wrap
+it using a `Value`:
+
+```c++
+Value block_env(new Environment(env));
+```
+
+In general, reference counting will ensure that environments are
+properly deallocated when they are no longer in use. However, recall that
+a limitation of reference counting as a strategy for storage allocation
+is that it has difficulty reclaiming dynamic objects which have reference
+cycles. One likely reference cycle in our interpreter is between
+top-level functions and the global environment. The global environment
+will have references to the function objects representing user-defined
+functions. However, each of those functions will have the global
+environment as its parent environment, resulting in a reference cycle.
+This particular reference cycle is easy to break if the interpreter
+simply clears the global environment (by removing bindings for all
+global variables and functions) when the execution of the interpreted
+program is complete.
 
 ## Testing
 
-*Coming soon!*
+*Note: the tests for Assignment 2 are currently somewhat limited, although
+they are a reasonable starting point. We will be adding more tests
+in the very near future.*
+
+The [fall2022-tests](https://github.com/jhucompilers/fall2022-tests)
+repository has tests you can use to check your implementation.
+
+The procedure for running tests is exactly the same as in [Assignment 1](assign01.html#testing),
+except that
+
+* you should set the `ASSIGN02_DIR` environment variable rather than `ASSIGN01_DIR`, and
+* the tests are in the `assign02` directory rather than the `assign01` directory
+
+We *strongly* encourage you to make substantial use of the tests as
+you implement the syntax and semantics of the language constructs in this
+assignment, since they demonstrate the expected language semantics
+in a way that makes it easy to determine whether or not your interpreter
+implements them correctly or incorrectly.
+
+## Non-functional requirements
+
+We expect your code to be clean, readable, well-designed, and
+(reasonably) efficient.  Please refer to the
+[design, coding style, and efficency](design.html) guidelines.
+
+We also expect your code to be free of runtime errors such as
+uses of uninitialized variables, out of bounds array accesses,
+and memory leaks. You can and should use `valgrind` when testing
+your code to check for such errors. We also highly recommend using
+[`std::unique_ptr`](https://en.cppreference.com/w/cpp/memory/unique_ptr)
+to manage pointers to dynamically-allocated objects (to ensure
+that they are deallocated when no longer needed.)
+
+You should submit a `README.txt` file that briefly explains your
+implementation. A paragraph or two is sufficient. If you used any
+interesting implementation techniques, let us know about them.
+Also, if there are any limitations such as features that you weren't
+able to get working, you can document them here.
 
 ## Submitting
 
-*Coming soon!*
+To submit, create a zipfile with your code, the `Makefile`, and the
+`README.txt`. Suggested command:
+
+```
+zip -9r solution.zip *.h *.cpp Makefile README.txt
+```
+
+Upload the zipfile (i.e., `solution.zip`) to [Gradescope](https://www.gradescope.com)
+as **Assignment 2 MS1** or **Assignment 2 MS2** (depending on which
+milestone you are submitting.)
