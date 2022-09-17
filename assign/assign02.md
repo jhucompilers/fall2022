@@ -470,9 +470,66 @@ Name   | Num args | Arg types | Description
 
 If an array intrinsic function is passed the wrong number and/or types of arguments, it should raise an `EvaluationError`.
 
+Note that you will need to modify the `Value::as_str` member function so that it
+can handle array values. An array value should be converted to a string
+as follows:
+
+* the first character of the string is `[`
+* the result of converting each element value to a string is appended,
+  with each adjacent pair of elements being separated by a space
+  followed by a comma
+* the last character of the string is `]`
+
 ### Strings and string intrinsic functions
 
-*Coming soon!*
+Note that implementing support for strings and the intrinsic string functions
+is only 2% of the assignment grade, so we recommend not working on this
+until control flow, functions, and arrays are completely tested and working.
+
+Support for strings is another useful data type.
+
+You will need to start by adding support for string literals to the lexer.
+A string literal is a sequence of characters
+
+* starting with `"`
+* continuing with 0 or more occurrences of (in any order)
+  * a character other than `\` or `"`
+  * one of the escape sequences `\"`, `\n`, `\r`, or `\t`
+* ending with `"`
+
+String literals should be allowed as an expansion of the F nonterminal symbol,
+so you will need to add the production
+
+```
+F → string_literal
+```
+
+to the parser.
+
+When a string literal is converted to a value, the sequence of characters
+represented by the resulting string is determined by the characters in the
+string's lexeme, excluding the quote ("`"`") characters at the beginning
+and end of the lexeme. Also note that the escape sequences
+`\"`, `\n`, `\r`, and `\t` stand for (respectively) the quote
+character (`"`), newline, carriage return, and tab.
+
+A string value requires a dynamic representation, so you will need to add
+a `String ` class deriving from `ValRep` to store the sequence of characters
+represented by the string.
+
+The following intrinsic functions are defined to work with string values:
+
+Name     | Num args | Arg types        | Description
+-------- | -------- | ---------------- | -----------
+`substr` | 3        | string, int, int | returns a substring consisting of all characters starting at the beginning index (second arg) and containing as many subsequent characters as indicated by the third arg; returns an empty string if the substring doesn't fall entirely in the bounds of the string value
+`strcat` | 2        | string, string   | returns the concatenation of two string values
+`strlen` | 1        | string           | returns the length (number of characters) in a string value
+
+If a string value is called with the wrong number and/or types of arguments,
+an `EvaluationError` error should be raised.
+
+When converting a string value to a string using `Value::as_str`, the resulting
+string should simply reflect the sequence of characters in the string value.
 
 ### Lambdas (anonymous functions)
 
