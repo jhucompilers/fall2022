@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Sep 17** — The [full specification of Assignment 2](assign/assign02.html) is available.
+  There are two milestones, due **Sep 26th** and **Oct 3**, respectively.
 * **Sep 15** — [A preliminary specification of Assignment 2](assign/assign02.html) is available.
   It specifies the required lexer and parser changes needed to support functions, but
   does not yet have a description of their semantics (although the
