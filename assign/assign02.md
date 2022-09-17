@@ -389,7 +389,60 @@ returns it. It should not be passed any arguments, and should raise
 
 ### Values and reference counting of dynamic representations
 
-*Coming soon!*
+Value representing integers or intrinsic functions are considered
+*atomic*, meaning that the representation of the value requires
+a fixed number of bytes, which are stored directly in the
+`Value` object and can be copied by value.
+
+The other types of values the interpreter can support, specifically
+
+* functions
+* arrays
+* strings
+* environments (if implementing closures, otherwise environments aren't values)
+
+require an unknown amount of storage. These kinds of values require
+a *dynamic* representation. Each dynammic representation should be implemented
+as a class inheriting from the `ValRep` base class.
+
+The starter code already implements a `Function` class to represent user-defined
+functions.
+
+You will need to add `Array` and `String` classes to implement the dynamic
+representations for array and string values.
+
+Because `Value` objects representing types requiring a dynamic representation
+are implemented using a pointer to a dynamically-allocated instance of
+`ValRep` (`Function`, `Array`, `String`, etc.), a problem arises. Specifically,
+
+1. more than one `Value` object can have a pointer to the same dynamic
+   representation object, and
+2. we want to make sure that dynamic representation objects that are no
+   longer needed are deallocated
+
+You should use *reference counting* to manage dynamic representation objects.
+The idea is that
+
+1. Each time a `Value` object acquires a pointer to a dynamic
+   representation object, it should increment the reference count of the
+   object
+2. Each time a `Value` object releases a pointer to a dynamic
+   representation object, it should decrement the reference count
+   of the object
+3. If, when a `Value` releases a pointer to a dynamic representation
+   object and decrements its reference count, it notices that the
+   object's reference count becomes 0, it should delete the object
+
+A reference count member variable and accessor functions
+(`add_ref`, `remove_ref`, `get_num_refs`) are already implemented in `ValRep`.
+You will need to implement reference counting in the `Value` class,
+including deleting dynamic representation objects that no longer have
+any references.
+
+Note that your interpreter should treat `Value` as having value semantics,
+meaning that rather than passing, returning, or storing pointers or references
+to `Value` objects, your interpreter should pass them by value, return
+them by value, copy them by value, etc.
 
 ### Arrays and array intrinsic functions
 
