@@ -3,13 +3,6 @@ layout: default
 title: "Assignment 2"
 ---
 
-*Note: this is a preliminary version of the assignment description, which
-has information about required lexer and parser changes, but is still
-missing most details about semantics such as implementing functions.
-It will be updated. Note that the [Lecture 5 slides](../lectures/lecture05-public.pdf)
-do have a relatively detailed presentation of functions and function
-calls.*
-
 **Due**: TBD
 
 # Interpreter part 2: Functions, control structures, runtime
@@ -38,7 +31,8 @@ development progress.
 
 The grading criteria are as follows:
 
-* Implementation of functions and function calls (including intrinsic functions): 83%
+* Control flow (if, if/else, while statements): 33%
+* Implementation of functions and function calls (including intrinsic functions): 50%
 * Arrays: 4%
 * Strings: 2%
 * Lambdas: 1%
@@ -89,7 +83,7 @@ The "`TStmt`" nonterminal means "top-level statement", which means statements
 that can appear in the global scope.
 
 You will also need to implement the following new productions
-(each occurrence of blue italized text beginning with <code><i style="color:blue;">--</i></code>
+(each occurrence of blue italicized text beginning with <code><i style="color:blue;">--</i></code>
 represents an explanatory comment, and is not part of the production):
 
 <div class='highlighter-rouge'><pre>
@@ -116,7 +110,8 @@ Note that the <code class='highlighter-rouge'>OptPList &rarr; ε</code> and
 <code class='highlighter-rouge'>OptArgList &rarr; ε</code> productions are
 *epsilon productions*, meaning that there are no symbols on the right
 hand side of the production, so they represent a step in the derivation
-where the nonterminal symbol on the left hand side expands to nothing.
+of the input string where the nonterminal symbol on the left hand side
+expands to nothing.
 
 As you implement these productions, you should think about how to best
 represent the constructs in the resulting AST. As with Assignment 1,
@@ -191,27 +186,172 @@ UNIT
 This is intended as an example. You may structure the AST in whatever way
 seems most appropriate.
 
-## Semantics of functions and function calls
+## Interpreter semantics
+
+This section describes the semantics of the new programming language
+constructs introduced by the lexer and parser changes.
+
+Note that these semantics, and the required implementation techniques,
+are covered in [Lecture 5 slides](../lectures/lecture05-public.pdf),
+so the slides will also be a useful reference.
+
+### Global environment
+
+As with [Assignment 1](assign01.html), there should be a global `Environment`
+object in which the names of global variables, functions, and intrinsic functions
+are bound to their values.
+
+### Control flow
+
+The new control-flow statements are `if`, `if`/`else`, and `while` statements.
+
+When evaluating an `if` statement, the interpreter should first evaluate the
+condition. If the result of the evaluation of the condition is not a numeric
+(integer) value, an `EvaluationError` should be raised.  Otherwise, if the
+result of evaluating the condition is a non-zero value, the body of the
+`if` statement should be evaluated.
+
+An `if`/`else` statement is handled the same way as an `if` statement, except
+that if the condition evaluates to zero, the `else` part of the statement
+is executed.
+
+A `while` statement is very similar to an `if` statement, except that
+after each execution of the body, the condition is checked again, and the
+loop continues until the condition evaluates as false.
+
+Note that control-flow statements should evaluate to the value 0.
+For example, the following program would produce the result 0:
+
+```
+if (1) {
+  42;
+}
+```
+
+### Functions and function calls
+
+When a function definition is evaluated,
+
+1. A function value should be created
+2. The name of the function should be bound (assigned) to the function
+   name in the global environment
+
+A function value is created by creating a `Function` object, and making
+it the dynamic representation of a `Value`. This could look something
+like the following:
+
+```c++
+std::string fn_name;
+std::vector<std::string> param_names;
+Node *body;
+
+// ...code to initialize fn_name, param_names, and body...
+
+Value fn_val(new Function(fn_name, param_names, env, body));
+```
+
+In the code above, `env` is a pointer to the environment in which
+the function is created, which for a top-level function will be the
+global environment.
+
+When a function call is evaluated,
+the name of the called function is looked up in the current
+environment (and recursively in parent environments if
+necessary). If the value resulting from the lookup is not
+a function value (or an intrinsic function value) an
+`EvaluationError` should be raised.
+
+If the called function value represents an ordinary "user-defined"
+function (as opposed to an intrinsic function), the number
+of arguments should be compared to the called function's number
+of parameters. If they are different, an `EvaluationError`
+should be raised.
+
+If the called function value represents an intrinsic function,
+then the arguments should be collected in an array, and then the intrinsic
+function's implementation should be called
+using its function pointer.  Assuming `fn_val` is a `Value`
+representing the intrinsic function, and `loc` is a `Location`
+indicating the location of the function call in the source
+code, this will look something like this:
+
+```c++
+Value args[num_args];
+// store arguments in the args array
+
+IntrinsicFn fn = fn_val.get_intrinsic_fn();
+Value result = fn(args, num_args, loc, this);
+```
+
+(We are assuming that this code is in a member function of
+`Interpreter`, so `this` refers to the `Interpreter` object.)
+
+If the called function value represents an ordinary "user-defined"
+function, the procedure is as follows:
+
+1. A function call environment whose parent is the function's
+   parent environment should be created
+2. Each argument should be evaluated in the current environment
+   and bound (assigned) to the corresponding function parameter
+3. The body of the function is recursively evaluated in the
+   function call environment; the resulting `Value` is the
+   result of the function call
+
+Note that in the same way that the value of the last statement in
+the overall Unit is the result of the program, the value of
+the last statement in a function body is the result of the function.
+
+### Blocks and scopes
+
+As with [Assignment 1](assign01.html), the global environment is the
+scope corresponding to the top-level Unit node in the overall AST.
+
+Because we want our interpreter language to be a block-structured
+language, every construct which surrounds an occurrence of SList
+in curly braces ("`{`" and "`}`") defines a nested scope.
+
+So, when the interpreter evaluates an SList (statement list),
+it should create a nested environment (whose parent is the current
+environment) for evaluating the code in that statement list.
+
+It is not legal for a name to be defined more than once in any
+block. However, it is legal for a nested block to define a name
+that is defined in an outer block. This is why a function such as
+
+```
+function f(a, b) {
+  var b;
+  b = 3;
+  a * b;
+}
+```
+
+would be legal. The variable `b` defined in the body of the function
+is a different variable than the parameter `b` defined in the function
+call environment (which is the parent environment of the function
+body environment.)
+
+### Intrinsic functions
 
 *Coming soon!*
 
-## Values and reference counting of dynamic representations
+### Values and reference counting of dynamic representations
 
 *Coming soon!*
 
-## Intrinsic functions
+### Intrinsic functions
 
 *Coming soon!*
 
-## Arrays and array intrinsic functions
+### Arrays and array intrinsic functions
 
 *Coming soon!*
 
-## Strings and string intrinsic functions
+### Strings and string intrinsic functions
 
 *Coming soon!*
 
-## Lambdas (anonymous functions)
+### Lambdas (anonymous functions)
 
 *Coming soon!*
 
