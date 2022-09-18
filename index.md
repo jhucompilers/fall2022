@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Sep 18** — [Assignment 2](assign/assign02.html) has been updated with
+  new versions of `function.cpp`, `valrep.h`, and `valrep.cpp` which correct bugs
+  in the original versions of these files.
 * **Sep 17** — The [full specification of Assignment 2](assign/assign02.html) is available.
   There are two milestones, due **Sep 26th** and **Oct 3**, respectively.
 * **Sep 15** — [A preliminary specification of Assignment 2](assign/assign02.html) is available.

@@ -8,6 +8,9 @@ title: "Assignment 2"
 * Milestone 1 due **Mon, Sept 26** by 11pm Baltimore time
 * Milestone 2 due **Mon, Oct 3** by 11pm Baltimore time
 
+*Update 9/18*: You will need updated versions of several starter code files;
+see the [Updated files](#updated-files) section.
+
 # Interpreter part 2: Functions, control structures, runtime
 
 This assignment is a continuation of [Assignment 1](assign01.html), in which
@@ -29,6 +32,29 @@ You could also just modify your existing code for Assignment 1.
 Regardless of which approach you use, be sure to use version control
 (e.g., [Git](https://git-scm.com/)) to record and preserve your
 development progress.
+
+### Updated files
+
+There are some updated starter files that you will need. These
+correct some bugs in the original starter code. You can download
+them into your working directory by running the following commands:
+
+```
+wget https://jhucompilers.github.io/fall2022/assign/assign02/function.cpp
+wget https://jhucompilers.github.io/fall2022/assign/assign02/valrep.h
+wget https://jhucompilers.github.io/fall2022/assign/assign02/valrep.cpp
+```
+
+Here are direct download links:
+
+* [function.cpp](assign02/function.cpp)
+* [valrep.h](assign02/valrep.h)
+* [valrep.cpp](assign02/valrep.cpp)
+
+You should not have needed to modify any of these files for
+Assignment 1, so copying the new versions should not cause any issues.
+If you have made changes to these files, you should use `diff` to find
+the textual differences between your version and the downloaded version.
 
 ## Grading criteria
 
