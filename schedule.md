@@ -33,11 +33,11 @@ Sep 5 | *Labor day, no classes* |  |
 Sep 7 | [Limitations of recursive descent, precedence climbing](lectures/lecture03-public.pdf) | EaC 3.3 | 
 Sep 12 | [ASTs, interpreters](lectures/lecture04-public.pdf) |  | 
 Sep 14 | [Interpreter runtime structures](lectures/lecture05-public.pdf) |  | [A1](assign/assign01.html) due<br>Fri 9/16
-Sep 19 | <span class='tentative'>Interpreter runtime structures 2</span> |  | 
-Sep 21 | <span class='tentative'>Lexical analyzer generators, lex/flex</span> | <span class='tentative'>EaC 2.1–2.5, F&amp;B Chapters 1–2</span> | 
-Sep 26 | <span class='tentative'>Parser generators, yacc/bison</span> | <span class='tentative'>F&amp;B Chapter 3</span> | [A2](assign/assign02.html) MS1 due
-Sep 28 | <span class='tentative'>LL(1) parsing</span> | <span class='tentative'>EaC 3.3</span> | 
-Oct 3 | <span class='tentative'>Bottom-up parsing, Exam 1 review</span> | <span class='tentative'>EaC 4.1–4.4</span> | [A2](assign/assign02.html) MS2 due
+Sep 19 | [Interpreter runtime structures 2](lectures/lecture06-public.pdf) | [Gosling, Java Intermediate Bytecodes](https://dl.acm.org/doi/pdf/10.1145/202529.202541) | 
+Sep 21 | [Lexical analyzer generators, lex/flex](lectures/lecture07-public.pdf) | EaC 2.1–2.5, F&amp;B Chapters 1–2 | 
+Sep 26 | [Parser generators, yacc/bison](lectures/lecture08-public.pdf) | F&amp;B Chapter 3 | [A2](assign/assign02.html) MS1 due
+Sep 28 | [LL(1) parsing](lectures/lecture09-public.pdf) | EaC 3.3 | 
+Oct 3 | [Bottom-up parsing, Exam 1 review](lectures/lecture10-public.pdf) | EaC 4.1–4.4 | [A2](assign/assign02.html) MS2 due
 Oct 5 | <span class='tentative'>Exam 1</span> |  | 
 Oct 10 | <span class='tentative'>Context-sensitive analysis, attribute grammars</span> |  | 
 Oct 12 | <span class='tentative'>Compiler project intro, ASTs and symbol tables</span> |  | 

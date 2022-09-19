@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Sep 19** — The [Schedule](schedule.html) has been updated with lecture slides and
+  readings through Oct 3rd.
 * **Sep 18** — [Assignment 2](assign/assign02.html) has been updated with
   new versions of `function.cpp`, `valrep.h`, and `valrep.cpp` which correct bugs
   in the original versions of these files.
