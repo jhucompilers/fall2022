@@ -78,7 +78,8 @@ assignemnt as optional.
 
 There are two milestones:
 
-* Milestone 1: control flow works correctly
+* Milestone 1: control flow and calls to intrinsic `print`/`println`
+  work correctly in programs using integer values
 * Milestone 2: all functionality is implemented
 
 ## Lexical analyzer changes
