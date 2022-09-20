@@ -11,6 +11,8 @@ title: "Assignment 2"
 *Update 9/18*: You will need updated versions of several starter code files;
 see the [Updated files](#updated-files) section.
 
+*Update 9/20*: Clarified expectations for Milestone 1: see [Milestones](#milestones).
+
 # Interpreter part 2: Functions, control structures, runtime
 
 This assignment is a continuation of [Assignment 1](assign01.html), in which
