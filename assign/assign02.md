@@ -13,6 +13,9 @@ see the [Updated files](#updated-files) section.
 
 *Update 9/20*: Clarified expectations for Milestone 1: see [Milestones](#milestones).
 
+*Update 9/20*: Updated to indicate that [the logical operators are
+short-circuiting](#short-circuiting-logical-operators).
+
 # Interpreter part 2: Functions, control structures, runtime
 
 This assignment is a continuation of [Assignment 1](assign01.html), in which
@@ -270,6 +273,48 @@ if (1) {
   42;
 }
 ```
+
+### Short-circuiting logical operators
+
+The operators "`&&`" (logical and) and "`||`" (logical or) produce a
+boolean integer value (0 for false or 1 for true).
+
+In this assignment, you are required to implement these operators so
+that they are "short-circuiting". Specifically
+if the left operand of `||` is true, or the left operand of
+`&&` is false, then the right operand should not be evaluated.
+
+In many programs, it won't matter whether or not these operators
+are short-circuiting. However, there are situations where evaluating
+the right subexpression will change the behavior of the program.
+For example:
+
+```
+var a;
+var b;
+var c;
+
+a = 1;
+b = 11;
+c = 0;
+
+a || (b / c);
+```
+
+If `||` is short-circuiting, the result of the program is guaranteed
+to be 1. However, if `||` is not short-circuiting, then a divide by 0
+error occurs.
+
+Also, consider the expression
+
+```
+f() && g()
+```
+
+It is significant whether or not `&&` is short-circuiting, since
+this will affect whether or not `g()` is called. Since functions can
+print output and change the values of global variables, this can
+change the output and/or result of the program.
 
 ### Functions and function calls
 
