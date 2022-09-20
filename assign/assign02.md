@@ -74,7 +74,7 @@ Note that it is assumed that all of the functionality from
 
 Note that strings and lambdas represent only 3% of the grade for the assignment,
 so it is completely reasonable for you to treat these parts of the
-assignemnt as optional.
+assignment as optional.
 
 ### Milestones
 
