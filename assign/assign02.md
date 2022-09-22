@@ -465,10 +465,12 @@ You will need to implement the following intrinsic functions.
 output. A possible implementation of this function is shown above.
 It should raise an `EvaluationError` if it is not passed exactly
 one argument. The `Value::as_str` member function should be used
-to get the string value to print.
+to get the string value to print. The function should return the
+integer value 0.
 
 `println`: like `print`, but prints a newline ("`\n"`) character
 after the textual representation of the printed value.
+The function should return the integer value 0.
 
 `readint`: Reads a single integer value from standard input and
 returns it. It should not be passed any arguments, and should raise
