@@ -38,7 +38,7 @@ Sep 21 | [Lexical analyzer generators, lex/flex](lectures/lecture07-public.pdf) 
 Sep 26 | [Parser generators, yacc/bison](lectures/lecture08-public.pdf) | F&amp;B Chapter 3 | [A2](assign/assign02.html) MS1 due
 Sep 28 | [LL(1) parsing](lectures/lecture09-public.pdf) | EaC 3.3 | 
 Oct 3 | [Bottom-up parsing, Exam 1 review](lectures/lecture10-public.pdf) | EaC 4.1–4.4 | [A2](assign/assign02.html) MS2 due
-Oct 5 | <span class='tentative'>Exam 1</span> |  | 
+Oct 5 | Exam 1 |  | 
 Oct 10 | <span class='tentative'>Context-sensitive analysis, attribute grammars</span> |  | 
 Oct 12 | <span class='tentative'>Compiler project intro, ASTs and symbol tables</span> |  | 
 Oct 17 | <span class='tentative'>Intermediate representations</span> | <span class='tentative'>EaC 5.1–5.5</span> | 

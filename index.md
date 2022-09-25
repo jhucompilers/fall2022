@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Sep 25** — Exam 1 will take place in class on **Wednesday, Oct 5th**.
+  Review materials are available on the [Resources](resources.html) page.
 * **Sep 20** — [Assignment 2](assign/assign02.html) has been updated to more
   precisely describe the expectations for Milestone 1.
 * **Sep 19** — The [Schedule](schedule.html) has been updated with lecture slides and
