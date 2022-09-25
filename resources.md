@@ -9,6 +9,7 @@ category: "resources"
 * [Brown x64 cheat sheet](https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf)
 * [Brown gdb cheat sheet](https://cs.brown.edu/courses/cs033/docs/guides/gdb.pdf)
 * [CMU summary of gdb commands for x86-64](http://csapp.cs.cmu.edu/3e/docs/gdbnotes-x86-64.pdf)
+* [JHU CSF x86-64 assembly language guide](https://jhucsf.github.io/csfdocs/assembly-tips-v0.1.1.pdf)
 
 # Exam review materials
 
