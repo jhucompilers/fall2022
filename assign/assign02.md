@@ -16,6 +16,8 @@ see the [Updated files](#updated-files) section.
 *Update 9/20*: Updated to indicate that [the logical operators are
 short-circuiting](#short-circuiting-logical-operators).
 
+*Update 9/30*: Fixed the specification of how array values are converted to strings.
+
 # Interpreter part 2: Functions, control structures, runtime
 
 This assignment is a continuation of [Assignment 1](assign01.html), in which
@@ -566,8 +568,8 @@ as follows:
 
 * the first character of the string is `[`
 * the result of converting each element value to a string is appended,
-  with each adjacent pair of elements being separated by a space
-  followed by a comma
+  with each adjacent pair of elements being separated by a comma
+  followed by a space
 * the last character of the string is `]`
 
 ### Strings and string intrinsic functions

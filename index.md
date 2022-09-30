@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Sep 30** — [Assignment 2](assign/assign02.html) has been updated to correct
+  a mistake in the specification of how arrays are converted to strings
+  (when printed by `print` or `println`.)
 * **Sep 30** — The due date for Milestone 2 of [Assignment 2](assign/assign02.html)
   has been moved to **Thursday, Oct 6th**.
 * **Sep 28** — The [Schedule](schedule.html) has been updated with a date for
