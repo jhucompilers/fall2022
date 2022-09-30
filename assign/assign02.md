@@ -6,7 +6,7 @@ title: "Assignment 2"
 **Due dates**:
 
 * Milestone 1 due **Mon, Sept 26** by 11pm Baltimore time
-* Milestone 2 due **Mon, Oct 3** by 11pm Baltimore time
+* Milestone 2 due **Thurs, Oct 6** by 11pm Baltimore time
 
 *Update 9/18*: You will need updated versions of several starter code files;
 see the [Updated files](#updated-files) section.

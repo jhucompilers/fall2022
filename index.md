@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Sep 30** — The due date for Milestone 2 of [Assignment 2](assign/assign02.html)
+  has been moved to **Thursday, Oct 6th**.
 * **Sep 28** — The [Schedule](schedule.html) has been updated with a date for
   Exam 2, and a *tentative* schedule of future topics, readings, and assignment due
   dates.

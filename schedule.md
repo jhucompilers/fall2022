@@ -37,12 +37,12 @@ Sep 19 | [Interpreter runtime structures 2](lectures/lecture06-public.pdf) | [Go
 Sep 21 | [Lexical analyzer generators, lex/flex](lectures/lecture07-public.pdf) | EaC 2.1–2.5, F&amp;B Chapters 1–2 | 
 Sep 26 | [Parser generators, yacc/bison](lectures/lecture08-public.pdf) | F&amp;B Chapter 3 | [A2](assign/assign02.html) MS1 due
 Sep 28 | [LL(1) parsing](lectures/lecture09-public.pdf) | EaC 3.3 | 
-Oct 3 | [Bottom-up parsing, Exam 1 review](lectures/lecture10-public.pdf) | EaC 3.4 | [A2](assign/assign02.html) MS2 due
-Oct 5 | Exam 1 |  | 
+Oct 3 | [Bottom-up parsing, Exam 1 review](lectures/lecture10-public.pdf) |  | 
+Oct 5 | Exam 1 | EaC 3.4 | [A2](assign/assign02.html) MS2 due Thurs 10/6
 Oct 10 | <span class='tentative'>C syntax and semantics, ad-hoc semantic analysis</span> |  | 
 Oct 12 | <span class='tentative'>Intermediate representations</span> | <span class='tentative'>EaC 5.1–5.5</span> | 
-Oct 17 | <span class='tentative'>Code generation for expressions</span> | <span class='tentative'>EaC 7.1–7.4</span> | <span class='tentative'>A3 due</span>
-Oct 19 | <span class='tentative'>x86-64 assembly language, code generation</span> |  | 
+Oct 17 | <span class='tentative'>Code generation for expressions</span> | <span class='tentative'>EaC 7.1–7.4</span> | 
+Oct 19 | <span class='tentative'>x86-64 assembly language, code generation</span> |  | <span class='tentative'>A3 due Thurs 10/20</span>
 Oct 20–21 | **Fall break (no classes)** |  | 
 Oct 24 | <span class='tentative'>Conditions, decisions, and loops</span> | <span class='tentative'>EaC 7.8</span> | 
 Oct 26 | <span class='tentative'>Arrays and strings</span> | <span class='tentative'>EaC 7.5–7.7</span> | 
