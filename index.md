@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Oct 3** — A mistake in the answer to Question 3 in
+  [the solution to the Fall 2021 Exam 1](resources/exam01-fall2021-solution.pdf)
+  has been corrected.
 * **Sep 30** — [Assignment 2](assign/assign02.html) has been updated to correct
   a mistake in the specification of how arrays are converted to strings
   (when printed by `print` or `println`.)
