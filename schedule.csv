@@ -11,22 +11,22 @@ Sep 26,"Parser generators, yacc/bison",lectures/lecture08-public.pdf,,"F&amp;B C
 Sep 28,"LL(1) parsing",lectures/lecture09-public.pdf,,"EaC 3.3",
 Oct 3,"Bottom-up parsing, Exam 1 review",lectures/lecture10-public.pdf,,
 Oct 5,"Exam 1",,,"EaC 3.4","[A2](assign/assign02.html) MS2 due Thurs 10/6"
-Oct 10,"<span class='tentative'>C syntax and semantics, ad-hoc semantic analysis</span>",,,
-Oct 12,"<span class='tentative'>Intermediate representations</span>",,,"<span class='tentative'>EaC 5.1–5.5</span>",
-Oct 17,"<span class='tentative'>Code generation for expressions</span>",,,"<span class='tentative'>EaC 7.1–7.4</span>",
-Oct 19,"<span class='tentative'>x86-64 assembly language, code generation</span>",,,,"<span class='tentative'>A3 due Thurs 10/20</span>"
+Oct 10,"C syntax and semantics",lectures/lecture11-public.pdf,,
+Oct 12,"AST visitors, ad-hoc semantic analysis",,,"EaC 5.1–5.5",
+Oct 17,"<span class='tentative'>Intermediate representations</span>",,,"<span class='tentative'>EaC 7.1–7.4</span>",
+Oct 19,"<span class='tentative'>Code generation for expressions</span>",,,,"<span class='tentative'>A3 due Thurs 10/20</span>"
 Oct 20–21,**Fall break (no classes)**,
-Oct 24,"<span class='tentative'>Conditions, decisions, and loops</span>",,,"<span class='tentative'>EaC 7.8</span>"
-Oct 26,"<span class='tentative'>Arrays and strings</span>",,,"<span class='tentative'>EaC 7.5–7.7</span>"
-Oct 31,"<span class='tentative'>Attribute grammars</span>",,,"<span class='tentative'>EaC 4.1–4.3</span>",,
-Nov 2,"<span class='tentative'>Intro to code optimization</span>",,,"<span class='tentative'>EaC 8.1–8.5</span>","<span class='tentative'>A4 due</span>"
+Oct 24,"<span class='tentative'>x86-64 assembly language, code generation</span>",,,"<span class='tentative'>EaC 7.8</span>"
+Oct 26,"<span class='tentative'>Conditions, decisions, and loops</span>",,,"<span class='tentative'>EaC 7.5–7.7</span>"
+Oct 31,"<span class='tentative'>Arrays and strings</span>",,,"<span class='tentative'>EaC 4.1–4.3</span>",,
+Nov 2,"<span class='tentative'>Attribute grammars</span>",,,"<span class='tentative'>EaC 8.1–8.5</span>","<span class='tentative'>A4 due</span>"
 Nov 7,"Exam 2",,,
-Nov 9,"<span class='tentative'>Global optimization, instruction selection</span>",,,"<span class='tentative'>EaC 8.6, 11.5</span>"
-Nov 14,"<span class='tentative'>Local register allocation</span>",,,"<span class='tentative'>EaC 13.1–13.3</span>"
-Nov 16,"<span class='tentative'>Dataflow analysis</span>",,,"<span class='tentative'>EaC 9.1–9.2, <a href='lectures/kildall-popl73.pdf'>Kildall-POPL73</a></span>"
+Nov 9,"<span class='tentative'>Intro to code optimization</span>",,,"<span class='tentative'>EaC 8.6, 11.5</span>"
+Nov 14,"<span class='tentative'>Global optimization, instruction selection</span>",,,"<span class='tentative'>EaC 13.1–13.3</span>"
+Nov 16,"<span class='tentative'>Local register allocation</span>",,,"<span class='tentative'>EaC 9.1–9.2, <a href='lectures/kildall-popl73.pdf'>Kildall-POPL73</a></span>"
 Nov 21–25,**Fall recess (no classes)**,
-Nov 28,"<span class='tentative'>Procedures</span>",,,"<span class='tentative'>EaC Chapter 6</span>","<span class='tentative'>A5 due</span>"
-Nov 30,"<span class='tentative'>Topic TBD</span>",,,
+Nov 28,"<span class='tentative'>Dataflow analysis</span>",,,"<span class='tentative'>EaC Chapter 6</span>","<span class='tentative'>A5 due</span>"
+Nov 30,"<span class='tentative'>Procedures</span>",,,
 Dec 5,"<span class='tentative'>Topic TBD</span>",,,
 Dec 7,"<span class='tentative'>Topic TBD</span>",,,,"<span class='tentative'>A6 due</span>"
 TBD,"**Exam 3** (location TBD)",
