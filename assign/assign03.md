@@ -261,6 +261,21 @@ does not have a parent.
 
 *Coming soon!*
 
+### Struct types
+
+One relatively easy way to handle struct types is to think of the definition
+of a struct type as being a scope containing variable definitions, where the
+variable definitions are the members (fields) of the struct types.
+Once all of the members have been processed, create an instance of
+`StructType` (wrapped in a `std::shared_ptr<Type>`) with `Member` instances
+for each field.
+
+When you add the name of a struct type as a symbol table entry (which should
+have `SymbolTableKind::TYPE` as its kind), you should make sure that the
+name of a struct type can't conflict with the name of a variable. One way to
+do this would be to prepend `"struct "` to the struct type's name when naming its
+symbol table entry.
+
 ### LiteralValue
 
 *Coming soon!*
@@ -272,3 +287,22 @@ good overview of the semantic rules your semantic analyzer is expected to
 check.
 
 *Coming soon!*
+
+## `README.txt`
+
+Please submit a `README.txt` with your submission which briefly discusses anything
+interesting or significant you want us to know about your implementation.
+If there are any features you weren't able to get fully working, or if you implemented
+extra functionality, this is a place you could document that.
+
+## Submitting
+
+Create a zipfile with all of your code, your `Makefile`, and your `README.txt`.
+Example commands:
+
+```
+make clean
+zip -9r solution.zip *.h *.cpp *.rb Makefile README.txt
+```
+
+Upload the zipfile to Gradescope as **Assignment 3**.
