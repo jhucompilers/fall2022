@@ -58,6 +58,37 @@ the `SemanticAnalysis` class so that
 * the input source is checked for semantic errors, which should be reported
   using the `SemanticError::raise` function
 
+## Visualizing the AST
+
+Your semantic analyzer will need to work with the AST representation of the input
+code. We strongly recommend that you make use of the `-p` command line option
+to have your `nearly_cc` program print a text representation of the AST. This will
+give you detailed knowledge of how the AST is represented for whichever part of
+the AST you are working on.  For example:
+
+<div class='highlighter-rouge'><pre>
+$ <b>cat input/example01.c</b>
+int main(void) {
+  return 0;
+}
+$ <b>$ASSIGN03_DIR/nearly_cc -p input/example01.c</b>
+AST_UNIT
++--AST_FUNCTION_DEFINITION
+   +--AST_BASIC_TYPE
+   |  +--TOK_INT[int]
+   +--TOK_IDENT[main]
+   +--AST_FUNCTION_PARAMETER_LIST
+   +--AST_STATEMENT_LIST
+      +--AST_RETURN_EXPRESSION_STATEMENT
+         +--AST_LITERAL_VALUE
+            +--TOK_INT_LIT[0]
+</pre></div>
+
+
+You might also find it helpful to refer to
+`parse_buildast.y`, which is the Bison parser, since its semantic actions are
+responsible for creating the AST.
+
 ## Testing
 
 As with Assignments 1 and 2, a public test suite is provided to serve as a
@@ -70,7 +101,7 @@ variable to the path of the directory containg your work, e.g.
 export ASSIGN03_DIR=~/compilers/assign03
 ```
 
-assuming that `~/compilers/assign3` is the directory containing your code.
+assuming that `~/compilers/assign03` is the directory containing your code.
 
 The test inputs are in the "`input`" directory.  To run a test, use the
 `run_test.rb` script as follows, specifying the base name of the test you want
@@ -92,6 +123,37 @@ directories.
 
 This will be a fairly complex assignment, but if you approach it methodically
 you should be able to make steady progress.
+
+### Suggested approach
+
+One way to get started is to work on the `visit_basic_type` member function.
+This function should analyze the basic type and type qualifier keywords,
+and then create a `BasicType` object (wrapped in a `std::shared_ptr<Type>` smart
+pointer) to represent the basic type. Of course, if the combination of
+keywords doesn't identify a valid basic type (e.g., `long char`)
+then use `SemanticError::raise` to report the error.
+If the basic type is valid, annotate its AST node with a (shared)
+pointer to the type object.
+
+Once basic types are handled, you could tackle variable declarations.
+You will need to first process the base type, then (based on the type
+representation determined for the base type) you can work your way
+through the declarators and add each one as a symbol table entry (since
+each one will be defining a variable.)
+
+If you're at the point where declarations like
+
+```c
+unsigned int x, y[10], *z;
+```
+
+are working well, then you're off to a very good start.
+
+Analyzing expressions should be fairly straightforward, as long as you can
+handle the leaf nodes, which will be `AST_VAR_REF` and the various kinds of
+literals. Each leaf should be annotated with (at least) a type. Variable reference
+nodes should be annotated with a pointer to the `Symbol` representing the
+symbol table entry for the referred-to variable or function.
 
 ### SemamticAnalysis class, ASTVisitor
 
@@ -169,7 +231,31 @@ You are free to use or adapt this code, but you are not required to.
 
 ### Symbol and SymbolTable classes
 
-*Coming soon!*
+The `SymbolTable` class plays more or less the same role in the compiler
+as the `Environment` class played in [Assignment 1](assign01.html) and
+[Assignment 2](assign02.html). Specifically, it records information
+about each named variable, function, and struct type in the program.
+Unlike `Environment`, it is not a runtime data structure, because
+the compiler will be generating x86-64 assembly language code to carry
+out the execution of the program.
+
+A `SymbolTable` is a collection of *symbol table entries*, which are
+represented by dynamically-allocated instances of the `Symbol` class.
+There are three kinds of symbol table entries (defined by the
+`SymbolTableKind` enumeration type): variables, functions, and types.
+Type entries are only used for struct data types.
+
+Like the interpreter language in Assignments 1 and 2, C is a block
+scoped language. Each statement list (represented by `AST_STATEMENT_LIST`
+nodes in the AST) is a scope nested within its parent scope.
+It is not allowed to define to variables or functions with the same
+name in the same scope. However, it is allowed to define a variable
+in an inner scope whose name is the same as a variable in an outer
+(enclosing) scope.
+
+Each `SymbolTable` has a link to its "parent" `SymbolTable`, representing
+the enclosing scope. The `SymbolTable` representing the global scope
+does not have a parent.
 
 ### Type representations
 
