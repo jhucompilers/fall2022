@@ -103,6 +103,9 @@ export ASSIGN03_DIR=~/compilers/assign03
 
 assuming that `~/compilers/assign03` is the directory containing your code.
 
+You will want to change directory into the directory `assign03` of
+your clone of [the public test repository](https://github.com/jhucompilers/fall2022-tests).
+
 The test inputs are in the "`input`" directory.  To run a test, use the
 `run_test.rb` script as follows, specifying the base name of the test you want
 to run:
@@ -345,7 +348,140 @@ Note that the [slides for Lecture 11](../lectures/lecture11-public.pdf) are a ve
 good overview of the semantic rules your semantic analyzer is expected to
 check.
 
-*Coming soon!*
+**Note also**: to a large degree, the tests in the public test repository are
+the best specification of the behavior expected of your semantic analyzer.
+For all of the important semantics specified here, you should find at least
+one related test.
+
+**Rules for operators**:
+
+If in a use of the `+` and `-` operators one operand is a pointer and the
+other is an integer (belonging to any integer data type), then it is performing
+pointer arithmetic, and the result type is the same type as the type of the
+pointer operand.  The integer operand should be promoted to `int` or `unsigned int`
+if its representation is less precise.
+
+Arithmetic on two pointers is never legal.
+
+For arithmetic on two integers (`+`, `-`, `*`, etc.), the following rules apply:
+
+1. If either operand is has a type less precise than `int` or
+   `unsigned int`, it is promoted to `int` or `unsigned int`
+2. If one operand is less precise than the other, it is promoted
+   to the more precise type
+3. If the operands differ in signedness, the signed operand is
+   implicitly converted to unsigned
+
+For unary (one operand) operations on integer values, the operand value
+should be promoted to `int` or `unsigned int` if it belongs to a less-precise
+type.
+
+**Assignments**:
+
+An assignment is not legal if the type of the left hand operand is
+qualified as `const`.
+
+The left hand side of an assignment must be an *lvalue*.
+
+An *lvalue* is
+
+* a reference to a variable
+* an array subscript reference
+* a pointer dereference
+* a reference to a struct instance
+* a reference to a field of a struct instance
+
+If the types of the left and right sides of an assignment are both
+integer (`char`, `short`, `int`, etc.) then the assignment is legal.
+The right hand type is implicitly converted to the left hand (lvalue)
+type.
+
+If the left and right sides are both pointers, then the assignment is
+legal if and only if
+
+1. the unqualified base types of each pointer type are identical, and
+2. the base type on the left hand side does not lack any qualifiers
+   that the base type on the right hand side has
+
+For example, the following code is legal:
+
+```c
+char a;
+char *right;
+right = &a;
+const char *left;
+left = right; // a legal assignment
+```
+
+In the code above, `left`'s base type is `const char` and `right`'s base type
+is `char`. The unqualified base types are both `char`, an exact match.
+`right`'s base type does not have any qualifiers that `left`'s base type has.
+
+The following code is *not* legal:
+
+```c
+const char a;
+const char *right;
+right = &a;
+char *left;
+left = right; // illegal: discards "const" qualifier from base type
+```
+
+An assignment involving both pointer and non-pointer operands is never legal.
+
+If the left and right sides of an assignment both have a struct type,
+the assignment is legal as long as the type of both the left and right
+sides are the same struct type.
+
+**Literals**:
+
+The type of an integer literal defaults to `int`. If its suffix
+contains `U` or `u`, then it is unsigned.  If its suffix contains
+`L` or `l`, then it is `long`. If both are specified, it is
+`unsigned long`. The [LiteralValue class](#literalvalue) has member
+functions `is_unsigned()` and `is_long()` to help you decode
+and work with integer literals.
+
+The type of a character literal is `int`.
+
+The type of a string literal is `const char *` (pointer to `const char`.)
+
+### Representing implicit conversions
+
+Because code generation will need to know which implicit conversions are needed,
+it's a good idea to explicitly represent them in the AST.
+
+The `AST_IMPLICIT_CONVERSION` node tag is intended to allow explicit representation
+of implicit conversions. For example, let's say that in checking the left operand
+of an operator with two integer operands, the left operand's type is less precise
+than `int`, and needs to be promoted. That code could look something like this:
+
+```c++
+Node *left = n->get_kid(1);
+
+if (left->get_type()->get_basic_type_kind() < BasicTypeKind::INT)
+  n->set_kid(1, left = promote_to_int(left));
+```
+
+The `promote_to_int` member function could be implemented this way:
+
+```c++
+Node *SemanticAnalysis::promote_to_int(Node *n) {
+  assert(n->get_type()->is_integral());
+  assert(n->get_type()->get_basic_type_kind() < BasicTypeKind::INT);
+  std::shared_ptr<Type> type(new BasicType(BasicTypeKind::INT, n->get_type()->is_signed()));
+  return implicit_conversion(n, type);
+}
+
+Node *SemanticAnalysis::implicit_conversion(Node *n, const std::shared_ptr<Type> &type) {
+  std::unique_ptr<Node> conversion(new Node(AST_IMPLICIT_CONVERSION, {n}));
+  conversion->set_type(type);
+  return conversion.release();
+}
+```
+
+Although these implicit conversion nodes aren't strictly needed for this assignment,
+they will very likely be useful for code generation in assignments 4 and 5.
 
 ## `README.txt`
 
