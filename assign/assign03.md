@@ -259,7 +259,57 @@ does not have a parent.
 
 ### Type representations
 
-*Coming soon!*
+As discussed in [Lecture 11](../lectures/lecture11-public.pdf), trees are a
+good way to represent C data types. The starter code defines a base class
+called `Type`, with concrete derived classes `BasicType`, `QualifiedType`,
+`PointerType`, `ArrayType`, `StructType`, and `FunctionType`.
+
+You should read through the header file `type.h` to familiarize yourself with
+these types and the operations they support.  Note that the base class
+`Type` defines a "wide" interface of operations, meaning that any operation
+that would be meaningful for any of the derived classes is defined in the
+base class. This makes `Type` objects easy to work with, but it also raises
+the possibility that your program could invoke an operation that is not
+meaningful. For example, if your semantic analyzer calls the `get_num_members()`
+function on an instance of `BasicType`, an exception will be thrown.
+
+Because of the way that C variable declarations are split into a base type
+and declarators, it is natural to want to allow type representations to
+share parts of the representation. For this reason, `Type` objects
+(or, more specifically, objects that are derived from `Type`) are meant
+to be wrapped in `std::shared_ptr<Type>` smart pointers. This allows
+`Type` objects to be reference counted, so that the object is deleted when
+the last reference to it disappears.
+
+To make the reference counting work correctly, you should follow these
+rules:
+
+1. When a type object is dynamically allocated, it should *immediately*
+   be wrapped in a `std::shared_ptr<Type>`
+2. All further references to the object should also be managed by
+   `std::shared_ptr<Type>` instances created via copying or assignment
+
+You should *not* ever allow two "unrelated" `std::shared_ptr<Type>` instances
+to be created from the same "raw" pointer. The following code illustrates
+the correct and incorrect ways to create and refer to `Type` objects.
+
+```c++
+// a new type object should be immediately wrapped by a shared_ptr
+std::shared_ptr<Type> uchar_type(new BasicType(BasicTypeKind::CHAR, false));
+
+std::shared_ptr<Type> copy1(uchar_type); // good
+std::shared_ptr<Type> copy2;
+copy2 = uchar_type;                      // this is also fine
+
+Type *ushort_type = new BasicType(BasicTypeKind::SHORT, true); // dangerous raw pointer
+
+std::shared_ptr<Type> copy3(ushort_type); // problematic
+std::shared_ptr<Type> copy4(ushort_type); // problematic
+```
+
+In the code above, `copy3` and `copy4` will use different (unrelated) reference counts
+for the type object, leading to a high likelihood that the type object will be
+destroyed at a point when there are still `shared_ptr` objects referring to it.
 
 ### Struct types
 
@@ -278,7 +328,16 @@ symbol table entry.
 
 ### LiteralValue
 
-*Coming soon!*
+The `LiteralValue` class (defined in `literal_value.h` and `literal_value.cpp`)
+is intended to help the compiler
+
+1. decode the lexemes of literal values (integers, characters, and strings)
+2. represent literal values
+
+One place where you may find `LiteralValue` to be useful is in determining
+the size of an array when the semantic analyzer sees an array declarator.
+When later on you implement code generation, `LiteralValue` will likely be
+useful for representing integer, character, and string constant values.
 
 ### C semantic rules
 
