@@ -7,6 +7,10 @@ title: "Assignment 3"
 
 # Compiler: semantic analysis
 
+*Note: if you are reading this, understand that this assignment description
+has not been announced publically yet. Important details could
+conceivably change before that happens.*
+
 *Note: this assignment description is preliminary, but includes enough
 information to start the assignment and make substantial progress.
 This description will be updated, and I will announce in class and
