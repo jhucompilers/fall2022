@@ -7,14 +7,10 @@ title: "Assignment 3"
 
 # Compiler: semantic analysis
 
-*Note: if you are reading this, understand that this assignment description
-has not been announced publically yet. Important details could
-conceivably change before that happens.*
-
-*Note: this assignment description is preliminary, but includes enough
+*Note: this assignment description is somewhat preliminary, but includes enough
 information to start the assignment and make substantial progress.
-This description will be updated, and I will announce in class and
-on Courselore when that happens.*
+This description and the public tests will be updated, and I will announce
+in class and on Courselore when that happens.*
 
 In this assignment you will implement semantic analysis and type
 checking for a compiler for a subset of the C programming language.
@@ -132,9 +128,10 @@ you should be able to make steady progress.
 One way to get started is to work on the `visit_basic_type` member function.
 This function should analyze the basic type and type qualifier keywords,
 and then create a `BasicType` object (wrapped in a `std::shared_ptr<Type>` smart
-pointer) to represent the basic type. Of course, if the combination of
-keywords doesn't identify a valid basic type (e.g., `long char`)
-then use `SemanticError::raise` to report the error.
+pointer) to represent the basic type. If either of the type qualifiers
+were specified, then the `BasicType` can be wrapped in a `QualifiedType`.)
+Of course, if the combination of keywords doesn't identify a valid basic
+type (e.g., `long char`) then use `SemanticError::raise` to report the error.
 If the basic type is valid, annotate its AST node with a (shared)
 pointer to the type object.
 
@@ -248,6 +245,11 @@ There are three kinds of symbol table entries (defined by the
 `SymbolTableKind` enumeration type): variables, functions, and types.
 Type entries are only used for struct data types.
 
+You can use the `define` and `declare` member functions of `SymbolTable`
+to create a new symbol table entry.  `define` should be used for
+function definitions and all variable declarations. `declare` should
+be used only for function declarations (a.k.a. function prototypes.)
+
 Like the interpreter language in Assignments 1 and 2, C is a block
 scoped language. Each statement list (represented by `AST_STATEMENT_LIST`
 nodes in the AST) is a scope nested within its parent scope.
@@ -259,6 +261,21 @@ in an inner scope whose name is the same as a variable in an outer
 Each `SymbolTable` has a link to its "parent" `SymbolTable`, representing
 the enclosing scope. The `SymbolTable` representing the global scope
 does not have a parent.
+
+You might find the following helper functions to be useful for entering
+and leaving scopes in the source program:
+
+```c++
+void SemanticAnalysis::enter_scope() {
+  SymbolTable *scope = new SymbolTable(m_cur_symtab);
+  m_cur_symtab = scope;
+}
+
+void SemanticAnalysis::leave_scope() {
+  m_cur_symtab = m_cur_symtab->get_parent();
+  assert(m_cur_symtab != nullptr);
+}
+```
 
 ### Type representations
 
@@ -432,6 +449,20 @@ An assignment involving both pointer and non-pointer operands is never legal.
 If the left and right sides of an assignment both have a struct type,
 the assignment is legal as long as the type of both the left and right
 sides are the same struct type.
+
+**Function calls**:
+
+A function call is legal if
+
+* the name of the called function refers to a function that was previously
+  either declared or defined
+* the number of arguments passed is equal to the function type's number of
+  parameters
+* each argument expression has a type that could be legally assigned to
+  the corresponding parameter (according to the rules for assignment)
+
+The result of a function call has the type indicated by the function's
+return value.
 
 **Literals**:
 
