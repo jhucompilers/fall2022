@@ -27,7 +27,9 @@ make -j
 ```
 
 You will be (primarily) modifying the source files `semantic_analysis.h` and
-`semantic_analysis.cpp`. Note that you are free to modify other source files as
+`semantic_analysis.cpp`. You will also almost certainly need to modify the
+`NodeBase` class (defined in `node_base.h` and `node_base.cpp`) to add
+data members and member functions. Note that you are free to modify other source files if
 necessary.
 
 In this assignment, the expected output of the executable
@@ -87,8 +89,11 @@ responsible for creating the AST.
 
 ## Testing
 
-As with Assignments 1 and 2, a public test suite is provided to serve as a
-detailed specification of the expected functionality of your program.
+As with Assignments 1 and 2, **a public test suite is provided to serve as a
+detailed specification of the expected functionality of your program**.
+(I've emphasized this text because I want to emphasize that the public tests
+will probably be at least as useful as a functional specification as the text
+in this assignment description.)
 
 To use the test suite, start by setting the `ASSIGN03_DIR` environment
 variable to the path of the directory containg your work, e.g.

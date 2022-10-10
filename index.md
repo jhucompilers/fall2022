@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Oct 10** — [Assignment 3](assign/assign03.html) is due **Friday, Oct 21st**
+  by 11:59 pm.
 * **Oct 3** — A mistake in the answer to Question 3 in
   [the solution to the Fall 2021 Exam 1](resources/exam01-fall2021-solution.pdf)
   has been corrected.
