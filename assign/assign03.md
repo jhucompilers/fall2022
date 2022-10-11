@@ -5,6 +5,8 @@ title: "Assignment 3"
 
 **Due date**: Monday, Oct 24th by 11pm Baltimore time
 
+*Update 10/11*: Updated the section on [Struct types](#struct-types).
+
 # Compiler: semantic analysis
 
 *Note: this assignment description is somewhat preliminary, but includes enough
@@ -338,18 +340,50 @@ destroyed at a point when there are still `shared_ptr` objects referring to it.
 
 ### Struct types
 
-One relatively easy way to handle struct types is to think of the definition
-of a struct type as being a scope containing variable definitions, where the
-variable definitions are the members (fields) of the struct types.
-Once all of the members have been processed, create an instance of
-`StructType` (wrapped in a `std::shared_ptr<Type>`) with `Member` instances
-for each field.
+Handling the definition of a struct type will require a somewhat specific approach,
+which is described here. (This is a guide to implementing the
+`SemanticAnalysis::visit_struct_type_definition` member function.)
 
-When you add the name of a struct type as a symbol table entry (which should
-have `SymbolTableKind::TYPE` as its kind), you should make sure that the
-name of a struct type can't conflict with the name of a variable. One way to
-do this would be to prepend `"struct "` to the struct type's name when naming its
-symbol table entry.
+To start with, an instance of `StructType` should be created, and immediately
+entered into the current symbol table.  This code could look something like
+the following:
+
+```c++
+std::string name = /* the name of the struct type */;
+std::shared_ptr<Type> struct_type(new StructType(name));
+
+m_cur_symtab->define(SymbolTableKind::TYPE, "struct " + name, struct_type);
+```
+The reason that the struct type will need to be entered into the symbol
+table of the current scope immediately is that struct types can refer to
+themselves when defining a recursive data type, such as a linked list node:
+
+```c
+struct Node {
+  int data;
+  struct Node *next;
+};
+```
+
+In the example above, the base type of the `next` member is pointer to
+`struct Node`, so for this declaration to be legal, that type must
+already exist in the symbol table for the enclosing scope.
+
+Your semantic analyzer will need to treat the body
+of a struct type as being a scope containing variable definitions, where the
+variable definitions are the members (fields) of the struct type.
+This should be very similar to how a statement list is handled.
+
+Once all of the members have been processed, you can use the
+`add_member` member function to add a `Member`
+to the instance of `StructType` representing each field.
+Once that is done, the representation of the struct type is complete.
+
+Note that it is important to make sure that the names of struct types don't
+conflict with the names of variables and functions. Prepending
+"`struct `" to the name recorded in the symbol table entry (as shown
+above) is a simple way to accomplish this, and is also the approach
+that is expected by the public tests.
 
 ### LiteralValue
 

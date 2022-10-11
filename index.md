@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Oct 11** — The [Struct types section of Assignment 3](assign/assign03.html#struct-types)
+  has been updated to describe the required approach for handling struct type
+  definitions more accurately.
 * **Oct 11** — Because Fall break takes place October 20th and 21st, the due date
   for [Assignment 3](assign/assign03.html) has been changed to **Monday, Oct 24th**.
 * **Oct 10** — [Assignment 3](assign/assign03.html) is due **Friday, Oct 21st**
