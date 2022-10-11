@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Oct 11** — Because Fall break takes place October 20th and 21st, the due date
+  for [Assignment 3](assign/assign03.html) has been changed to **Monday, Oct 24th**.
 * **Oct 10** — [Assignment 3](assign/assign03.html) is due **Friday, Oct 21st**
   by 11:59 pm.
 * **Oct 3** — A mistake in the answer to Question 3 in
