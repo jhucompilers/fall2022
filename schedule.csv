@@ -16,7 +16,7 @@ Oct 12,"AST visitors, ad-hoc semantic analysis",lectures/lecture12-public.pdf,,,
 Oct 17,"Intermediate representations",lectures/Intermediate_Representations.pdf,,"EaC 5.1–5.5"
 Oct 19,"Code generation for expressions","lectures/Code_Shape_I_Quick_Intro_to_Code_Generation_+_Code_Shape_for_Expressions.pdf",,"EaC 7.1–7.4",
 Oct 20–21,**Fall break (no classes)**,
-Oct 24,"<span class='tentative'>x86-64 assembly language, code generation</span>",,,,"[A3](assign/assign03.html) due Fri 10/21"
+Oct 24,"<span class='tentative'>x86-64 assembly language, code generation</span>",,,,"[A3](assign/assign03.html) due"
 Oct 26,"<span class='tentative'>Conditions, decisions, and loops</span>",,,"<span class='tentative'>EaC 7.8</span>"
 Oct 31,"<span class='tentative'>Arrays and strings</span>",,,"<span class='tentative'>EaC 7.5–7.7</span>",,
 Nov 2,"<span class='tentative'>Attribute grammars</span>",,,"<span class='tentative'>EaC 4.1–4.3</span>","<span class='tentative'>A4 due</span>"
