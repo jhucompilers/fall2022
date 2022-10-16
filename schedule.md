@@ -40,11 +40,11 @@ Sep 28 | [LL(1) parsing](lectures/lecture09-public.pdf) | EaC 3.3 |
 Oct 3 | [Bottom-up parsing, Exam 1 review](lectures/lecture10-public.pdf) |  | 
 Oct 5 | Exam 1 | EaC 3.4 | [A2](assign/assign02.html) MS2 due Thurs 10/6
 Oct 10 | [C syntax and semantics](lectures/lecture11-public.pdf) |  | 
-Oct 12 | [AST visitors, ad-hoc semantic analysis](lectures/lecture12-public.pdf) | EaC 5.1–5.5 | 
-Oct 17 | <span class='tentative'>Intermediate representations</span> | <span class='tentative'>EaC 7.1–7.4</span> | 
-Oct 19 | <span class='tentative'>Code generation for expressions</span> |  | [A3](assign/assign03.html) due Fri 10/21
+Oct 12 | [AST visitors, ad-hoc semantic analysis](lectures/lecture12-public.pdf) |  | 
+Oct 17 | [Intermediate representations](lectures/Intermediate_Representations.pdf) | EaC 5.1–5.5 | 
+Oct 19 | <span class='tentative'>Code generation for expressions</span> | EaC 7.1–7.4 | 
 Oct 20–21 | **Fall break (no classes)** |  | 
-Oct 24 | <span class='tentative'>x86-64 assembly language, code generation</span> | <span class='tentative'>EaC 7.8</span> | 
+Oct 24 | <span class='tentative'>x86-64 assembly language, code generation</span> | <span class='tentative'>EaC 7.8</span> | [A3](assign/assign03.html) due Fri 10/21
 Oct 26 | <span class='tentative'>Conditions, decisions, and loops</span> | <span class='tentative'>EaC 7.5–7.7</span> | 
 Oct 31 | <span class='tentative'>Arrays and strings</span> | <span class='tentative'>EaC 4.1–4.3</span> | 
 Nov 2 | <span class='tentative'>Attribute grammars</span> | <span class='tentative'>EaC 8.1–8.5</span> | <span class='tentative'>A4 due</span>
