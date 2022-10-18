@@ -8,7 +8,7 @@ title: "Assignment 3"
 *Update 10/11*: Updated the section on [Struct types](#struct-types).
 
 *Update 10/18*: Updated [Getting started](#getting-started) section to
-describe changes that are needed in `type.cpp` to handle recursive struct
+describe changes that are needed in `type.cpp` and `type.h` to handle recursive struct
 types.
 
 # Compiler: semantic analysis
