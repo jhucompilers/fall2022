@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Oct 18** — [Assignment 3](assign/assign03.html) has been updated to describe
+  a fix to the starter code which works around an issue in handling recursive
+  struct types (such as linked list node types.)
 * **Oct 11** — The [Struct types section of Assignment 3](assign/assign03.html#struct-types)
   has been updated to describe the required approach for handling struct type
   definitions more accurately.

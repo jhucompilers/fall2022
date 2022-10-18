@@ -7,6 +7,10 @@ title: "Assignment 3"
 
 *Update 10/11*: Updated the section on [Struct types](#struct-types).
 
+*Update 10/18*: Updated [Getting started](#getting-started) section to
+describe changes that are needed in `type.cpp` to handle recursive struct
+types.
+
 # Compiler: semantic analysis
 
 *Note: this assignment description is somewhat preliminary, but includes enough
@@ -48,6 +52,63 @@ where `$ASSIGN03_DIR` expands to the directory containing your work, and
 *sourcefile* is the C source file to analyze.
 
 The "`-a`" command line option stands for "analyze."
+
+*Update 10/18*: The original starter code has issues handling recursive struct
+types such as linked list nodes. You can work around these issues by either
+downloading an [updated `type.h`](assign03/type.h) and
+[updated `type.cpp`](assign03/type.cpp), or applying the following changes
+manually:
+
+**1**: Add the following public member function to the `StructType` class
+in `type.h`:
+
+```c++
+  std::string get_name() const { return m_name; }
+```
+
+**2**: Add the following code to the very beginning of the
+`StructType::is_same` function in `type.cpp`:
+
+```c++
+  // Trivial base case that avoids infinite recursion for recursive types
+  if (this == other) return true;
+```
+
+**3**: Replace the implementation of the `HasMembers::as_str` function
+in `type.cpp` to match the following:
+
+```c++
+std::string HasMembers::as_str() const {
+  std::string s;
+
+  for (unsigned i = 0; i < get_num_members(); ++i) {
+    if (i > 0)
+      s += ", ";
+    const Member &member = get_member(i);
+
+    // Special case: recursive struct types such as linked list nodes, trees, etc.
+    // will lead to an infinite recursion if we try to recursively
+    // stringify the complete struct type. This is not a complete workaround,
+    // but it handles simple cases like "struct Node *next;".
+
+    bool member_is_recursive = false;
+    if (member.get_type()->is_pointer()) {
+      std::shared_ptr<Type> base_type = member.get_type()->get_base_type();
+      if (base_type.get() == this) {
+        member_is_recursive = true;
+        const StructType *struct_type = dynamic_cast<const StructType *>(this);
+        assert(struct_type != nullptr);
+        s += "pointer to struct " + struct_type->get_name();
+      }
+    }
+
+    if (!member_is_recursive)
+      s += member.get_type()->as_str();
+  }
+
+  return s;
+}
+```
 
 ## Your task
 
