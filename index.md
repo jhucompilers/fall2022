@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Oct 19** — [Assignment 3](assign/assign03.html) has been updated to
+  list the subset of operators which should be supported.
 * **Oct 18** — [Assignment 3](assign/assign03.html) has been updated to describe
   a fix to the starter code which works around an issue in handling recursive
   struct types (such as linked list node types.)

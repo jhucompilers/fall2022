@@ -11,6 +11,9 @@ title: "Assignment 3"
 describe changes that are needed in `type.cpp` and `type.h` to handle recursive struct
 types.
 
+*Update 10/19*: Added [Operators](#operators) section to describe which
+operators will be tested in this and future assignments.
+
 # Compiler: semantic analysis
 
 *Note: this assignment description is somewhat preliminary, but includes enough
@@ -458,6 +461,26 @@ One place where you may find `LiteralValue` to be useful is in determining
 the size of an array when the semantic analyzer sees an array declarator.
 When later on you implement code generation, `LiteralValue` will likely be
 useful for representing integer, character, and string constant values.
+
+### Operators
+
+C has a fairly large number of operators. To reduce the complexity of
+the compiler project sequence, the test cases will only use the following
+operators:
+
+* Arithmetic with two operands: `+`, `-`, `*`, `/`, `%`
+* Unary arithmetic: `-`
+* Pointer and address operations: `*` (dereference) and `&` (address-of)
+* Struct member access: `.` and `->`
+* Relational operators: `<`, `<=`, `>`, `>=`, `==`, `!=`
+* Logic with two operands: `&&`, `||`
+* Unary logic: `!` (not)
+* Assignment: `=`
+* Array subscript (i.e., `a[i]` where `a` is an array or pointer, and `i` is an
+  integer element index)
+
+You will explicitly *not* need to support bitwise operators, compound
+assignment (`+=` and similar), or increment/decrement (`++` and `--`).
 
 ### C semantic rules
 
