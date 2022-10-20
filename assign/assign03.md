@@ -651,7 +651,7 @@ Example commands:
 
 ```
 make clean
-zip -9r solution.zip *.h *.cpp *.rb Makefile README.txt
+zip -9r solution.zip *.h *.cpp *.rb *.y *.l Makefile README.txt
 ```
 
 Upload the zipfile to Gradescope as **Assignment 3**.
