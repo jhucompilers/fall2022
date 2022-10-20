@@ -24,19 +24,19 @@ Head course assistant:
 
 * Akshay Kaikottil &lt;<akaikot1@jhu.edu>&gt;
 
-emsp Office hours: Fri 2-4pm, Via Zoom (see Courselore for URL)
+&ensp; Office hours: Fri 2-4pm, Via Zoom (see Courselore for URL)
 
 Course assistants:
 
 * Ricky Cheng &lt;<rcheng15@jhu.edu>&gt;
 
-emsp Office: Malone 216 
+&ensp; Office: Malone 216 
 
-emsp Office hours: Mon 11am-12pm and Mon 4:30-5:30pm
+&ensp; Office hours: Mon 11am-12pm and Mon 4:30-5:30pm
 
 * Shivam Negi &lt;<rcheng15@jhu.edu>&gt;
 
-emsp Office hours: Th 2-4pm, Via Zoom (see Courselore for URL)
+&ensp; Office hours: Th 2-4pm, Via Zoom (see Courselore for URL)
 
 ## Meeting
 
