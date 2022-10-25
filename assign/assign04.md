@@ -205,7 +205,7 @@ is likely the best way to learn how they work.  As a very brief summary:
   via a base register (and optionally an index or offset),
   an intermediate value, or a label
 * an `Instruction` represents a high-level instruction with an
-  opcode, and between 1 and 3 operands
+  opcode, and between 0 and 3 operands
 * an `InstructionSequence` is a sequence of `Instruction` objects,
   with support for defining labels that can be used as control-flow
   targets
@@ -220,13 +220,58 @@ The following table summarizes the intended meaning of the various
 high-level opcodes.  Note that *\_sz* is an operand size suffix,
 which will be one of the following:
 
-* `_b`: "byte", 1 byte
-* `_w`: "word", 2 byte
-* `_l`: "long", 4 byte
-* `_q`: "quad", 8 byte
+* `_b`: "byte", 1 byte (8 bits)
+* `_w`: "word", 2 byte (16 bits)
+* `_l`: "long", 4 byte (32 bits)
+* `_q`: "quad", 8 byte (64 bits)
+
+Also note that for the `uconv` and `sconv` instructions, there are
+two operand size suffixes, describing a promotion from a less precise
+integer type to a more precise integer type. For example, the opcode
+`sconv_bl` would convert an 8-byte signed value to a 32-bit signed
+value.
 
 Because the target architecture (x86-64) uses 64 bit pointers, you should
 consider all pointers to be 8 bytes (64 bits.)
+
+Opcode              | Operands      | Meaning
+------------------- | ------------- | -------
+`HINS_nop`          |               | does nothing
+`HINS_add`*_sz*     | dst, src<sub>l</sub>, src<sub>r</sub> | add two integer values, store result in dst
+`HINS_sub`*_sz*     | dst, src<sub>l</sub>, src<sub>r</sub> | subtract src<sub>r</sub> from src<sub>l</sub>, store result in dst
+`HINS_mul`*_sz*     | dst, src<sub>l</sub>, src<sub>r</sub> | multiply two integer values, store result in dst
+`HINS_div`*_sz*     | dst, src<sub>l</sub>, src<sub>r</sub> | divide src<sub>l</sub> by src<sub>r</sub>, store quotient in dest
+`HINS_mod`*_sz*     | dst, src<sub>l</sub>, src<sub>r</sub> | divide src<sub>l</sub> by src<sub>r</sub>, store remainder in dest
+`HINS_cmplt`*_sz*   | dst, src<sub>l</sub>, src<sub>r</sub> | determine if src<sub>l</sub> &lt; src<sub>r</sub>, set dst to 0 or 1
+`HINS_cmplte`*_sz*  | dst, src<sub>l</sub>, src<sub>r</sub> | determine if src<sub>l</sub> &le; src<sub>r</sub>, set dst to 0 or 1
+`HINS_cmpgt`*_sz*   | dst, src<sub>l</sub>, src<sub>r</sub> | determine if src<sub>l</sub> &gt; src<sub>r</sub>, set dst to 0 or 1
+`HINS_cmpgte`*_sz*  | dst, src<sub>l</sub>, src<sub>r</sub> | determine if src<sub>l</sub> &ge; src<sub>r</sub>, set dst to 0 or 1
+`HINS_cmpeq`*_sz*   | dst, src<sub>l</sub>, src<sub>r</sub> | determine if src<sub>l</sub> = src<sub>r</sub>, set dst to 0 or 1
+`HINS_cmpneq`*_sz*  | dst, src<sub>l</sub>, src<sub>r</sub> | determine if src<sub>l</sub> &ne; src<sub>r</sub>, set dst to 0 or 1
+`HINS_neg`*_sz*     | dst, src                              | store the negation of src in dst
+`HINS_not`*_sz*     | dst, src                              | store the logical negation of src in dst
+`HINS_mov`*_sz*     | dst, src                              | store src in dst
+`HINS_sconv_bw`     | dst, src                              | promote 8 bit src to 16 bit dest (signed)
+`HINS_sconv_bl`     | dst, src                              | promote 8 bit src to 32 bit dest (signed)
+`HINS_sconv_bq`     | dst, src                              | promote 8 bit src to 64 bit dest (signed)
+`HINS_sconv_wl`     | dst, src                              | promote 16 bit src to 32 bit dest (signed)
+`HINS_sconv_wq`     | dst, src                              | promote 16 bit src to 64 bit dest (signed)
+`HINS_sconv_lq`     | dst, src                              | promote 32 bit src to 64 bit dest (signed)
+`HINS_uconv_bw`     | dst, src                              | promote 8 bit src to 16 bit dest (unsigned)
+`HINS_uconv_bl`     | dst, src                              | promote 8 bit src to 32 bit dest (unsigned)
+`HINS_uconv_bq`     | dst, src                              | promote 8 bit src to 64 bit dest (unsigned)
+`HINS_uconv_wl`     | dst, src                              | promote 16 bit src to 32 bit dest (unsigned)
+`HINS_uconv_wq`     | dst, src                              | promote 16 bit src to 64 bit dest (unsigned)
+`HINS_uconv_lq`     | dst, src                              | promote 32 bit src to 64 bit dest (unsigned)
+`HINS_ret`          | *none*                                | return from function
+`HINS_jmp`          | label                                 | unconditional jump to label
+`HINS_call`         | label                                 | call to function named by label
+`HINS_enter`        | immediate                             | reserve specified number of bytes for local variables
+`HINS_leave`        | immediate                             | deallocate specified number of bytes for local variables
+`HINS_localaddr`    | dst, immediate                        | store pointer to local variable at given offset in dst
+`HINS_cjmp_t`       | dst, label                            | conditional jump to label if dst contains true val
+`HINS_cjmp_f`       | dst, label                            | conditional jump to label if dst contains false val
+
 
 <!--
 Describe the IR classes. (See what we can re-use from last time.)
