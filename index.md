@@ -31,7 +31,7 @@ and/or Gradescope.
 
 ## News
 
-* **Oct 26** — [Assignment 3](assign/assign04.html) has two milestones,
+* **Oct 26** — [Assignment 4](assign/assign04.html) has two milestones,
   due (respectively) on **Friday, Nov 4th** and **Friday, Nov 18th**.
 * **Oct 19** — [Assignment 3](assign/assign03.html) has been updated to
   list the subset of operators which should be supported.
