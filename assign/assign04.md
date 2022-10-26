@@ -421,4 +421,43 @@ of the referenced lvalue.  You can see this happening in
 [example09.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example09.txt),
 because each array element reference requires an address computation.
 
+*Function calls.* The model for function calls is as follows:
+
+* the `vr0` register is the return value register, so whatever value
+  is in that register when a function returns is its return value
+* the `vr1` through `vr9` registers are the argument registers: the
+  first argument is passed in `vr1`, the second is passed in `vr2`,
+  etc.
+
+To call a function, generate code for each argument expression, and
+move its value into the appropriate argument register. Then emit a
+`call` instruction with the name of the function as the label operand.
+(We will not be supporting function calls by any mechanism other than
+directly naming the called function.) When the called function returns,
+the return value will be in `vr0`.
+
+One important detail is how a function should manage its own arguments.
+*TODO: explain this.*
+
 ## Milestone 2: x86-64 code generation
+
+*Information coming soon!*
+
+## `README.txt`
+
+Please submit a `README.txt` with your submission which briefly discusses anything
+interesting or significant you want us to know about your implementation.
+If there are any features you weren't able to get fully working, or if you implemented
+extra functionality, this is a place you could document that.
+
+## Submitting
+
+Create a zipfile with all of your code, your `Makefile`, and your `README.txt`.
+Example commands:
+
+```
+make clean
+zip -9r solution.zip *.h *.cpp *.rb *.y *.l Makefile README.txt
+```
+
+Upload the zipfile to Gradescope as **Assignment 4**.
