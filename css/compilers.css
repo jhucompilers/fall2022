@@ -133,6 +133,14 @@ code.highlighter-rouge {
 	font-style: italic;
 }
 
+*:not(li) > ul > li {
+  margin-top: 0.5em;
+}
+
+*:not(li) > ol > li {
+  margin-top: 0.5em;
+}
+
 /*
 vim:ts=2:
 */
