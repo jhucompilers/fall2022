@@ -437,7 +437,15 @@ directly naming the called function.) When the called function returns,
 the return value will be in `vr0`.
 
 One important detail is how a function should manage its own arguments.
-*TODO: explain this.*
+It's fairly straightforward.
+
+1. Parameters should have storage allocated just like any other local variable.
+   Their storage is *not* the argument register containing the parameter value.
+2. At the beginning of the generated high-level code for a function, the
+   value of each argument register should be copied into the storage location
+   of the corresponding parameter variable.
+3. When the code generator needs to emit a function call, it can simply
+   place the argument values in the appropriate argument registers.
 
 ## Milestone 2: x86-64 code generation
 
