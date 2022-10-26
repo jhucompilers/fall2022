@@ -318,8 +318,8 @@ of the opcode for that type.
 Here are some example translations of test programs in the public test repository
 to high-level code:
 
-Example program | Example high-level code translation
-:-------------: | :---------------------------------:
+Example program | Example translation
+:-------------: | :-----------------:
 [example01.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example01.c) | [example01.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example01.txt)
 [example02.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example02.c) | [example02.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example02.txt)
 [example03.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example03.c) | [example03.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example03.txt)
@@ -329,3 +329,96 @@ Example program | Example high-level code translation
 [example07.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example07.c) | [example07.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example07.txt)
 [example08.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example08.c) | [example08.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example08.txt)
 [example09.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example09.c) | [example09.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example09.txt)
+
+These example translations are by no means the only reasonable translations
+possible for these programs, but they should serve as a source of ideas
+for your high-level code generator.
+
+### Hints and tips
+
+*It is possible that this section will be updated.*
+
+*Allocating storage*: As mentioned previously, the `StorageCalculator` class
+can be used to lay out the fields of a struct data type, but it can also
+be used to lay out local variables in a block of memory in the stack frame.
+
+The reference implementation does use `StorageCalculator`, and also implements
+an optimization: specifically, variables which have non-overlapping lifetimes
+can share storage. For example, in the code
+
+```c
+if (a) {
+  int b1[1];
+  b1[0] = 1;
+  c = a + b1[0];
+} else {
+  int b2[1];
+  b2[0] = 2;
+  c = a + b2[0];
+}
+```
+
+the arrays `b1` and `b2` cannot exist at the same time, and can use the same
+storage. You are not required to implement this optimization, but if you are
+interested, you can make use of the property that a `StorageCalculator` object
+has value semantics. So, if `m_storage_calc` is a `StorageCalculator` member variable
+representing the memory storage for variables that are currently in scope,
+then the following code could be used to handle variable definitions in a
+nested scope:
+
+```c
+// enter nested scope
+StorageCalculator save = m_storage_calc;
+
+// ...handle variable declarations in nested scope, allocate their
+//    storage using m_storage_calc...
+
+// leave nested scope
+m_storage_calc = save;
+```
+
+The idea is that when control leaves a nested scope, memory storage allocated
+for any variables in that scope will no longer be needed.
+
+In general, you will need to make sure that the local memory area in the
+stack frame (as specified in the `enter` and `leave` instructions) is large
+enough to accommodate all of the local variables requiring memory storage.
+
+*Storing operands in expression nodes.* One of the most important things
+the high-level code generator will need to know is, for variables, array elements,
+struct fields, and computeed values, the location serving as storage
+for that variable or value.  A storage location is one of the following
+possibilities:
+
+* a global variable accessed by name
+* a local variable or temporary value whose storage is a virtual register
+* a local variable or temporary value whose storage is memory at a
+  specific offset in the stack frame's local variable area
+
+As the code generator recursively generates high-level code for expressions,
+it should store an `Operand` in the node indicating the storage location
+associated with that node.
+
+For computed values (for example, the result of an addition), the code
+generator should allocate a temporary virtual register, and use that
+virtual register as the storage location. So, the Operand could be
+constructed like this:
+
+```c++
+int temp_vreg = /* allocate the next unused temporary vreg number */;
+Operand operand(Operand::VREG, temp_vreg);
+```
+
+Any expression node that is an lvalue should be annotated with an operand
+that exactly represents the storage location if the variable, array element,
+or struct field that the lvalue represents. In the case of local variables
+whose storage is a virtual register, this is easy: the operand should just
+name that virtual register. For values located in memory, the operand
+should be a memory reference via an address stored in a virtual register.
+It is very possible that you will need to generate a sequence of instructions,
+possibly involving temporary virtual registers, to compute the exact address
+of the referenced lvalue.  You can see this happening in
+[example09.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example09.txt),
+because each array element reference requires an address computation.
+
+## Milestone 2: x86-64 code generation
