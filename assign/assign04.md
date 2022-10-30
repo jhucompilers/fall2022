@@ -6,6 +6,24 @@ title: "Assignment 4"
 *This is a somewhat preliminary assignment description, primarily intended
 to allow you to make progress on Milestone 1. It will be updated.*
 
+*Update 10/30*: There are a few things to note regarding Milestone 1:
+
+* You should add `local_storage_allocation.cpp` to the definition of the
+  `SRCS` macro in the `Makefile`
+* To support the address-of and pointer dereference operators, as well
+  as the unary `!` and `-` operators, your `HighLevelCodeGen` class will
+  need to override `visit_unary_expression`
+* To support references to fields of struct instances, your `HighLevelCodeGen`
+  class will need to override `visit_field_ref_expression` and
+  `visit_indirect_field_ref_expression`
+
+Also, you will need to add a `get_global_symtab` member function to the
+`SemanticAnalysis` class. This could be defined in the header file as
+
+```c++
+SymbolTable *get_global_symtab() { return m_global_symtab; }
+```
+
 **Due dates**:
 
 Milestone 1: due Friday, Nov 4th by 11pm
