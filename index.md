@@ -32,7 +32,10 @@ and/or Gradescope.
 ## News
 
 * **Oct 30** — [Assignment 4](assign/assign04.html) has been updated with
-  a required `Makefile` fix
+  a required `Makefile` fix, a required member function in the `SemanticAnalysis`
+  class, functions you will need to override in `HighLevelCodegen`
+  to support pointers and struct types, and some new example high-level
+  translations.
 * **Oct 26** — [Assignment 4](assign/assign04.html) has two milestones,
   due (respectively) on **Friday, Nov 4th** and **Friday, Nov 18th**.
 * **Oct 19** — [Assignment 3](assign/assign03.html) has been updated to
