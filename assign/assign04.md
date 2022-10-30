@@ -24,6 +24,10 @@ Also, you will need to add a `get_global_symtab` member function to the
 SymbolTable *get_global_symtab() { return m_global_symtab; }
 ```
 
+Also, the [Example high-level translations](#example-high-level-translations)
+section has been updated with some example programs which use pointers
+and instances of struct types.
+
 **Due dates**:
 
 Milestone 1: due Friday, Nov 4th by 11pm
@@ -347,6 +351,10 @@ Example program | Example translation
 [example07.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example07.c) | [example07.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example07.txt)
 [example08.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example08.c) | [example08.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example08.txt)
 [example09.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example09.c) | [example09.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example09.txt)
+[example10.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example10.c) | [example10.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example10.txt)
+[example11.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example11.c) | [example11.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example11.txt)
+[example12.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example12.c) | [example12.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example12.txt)
+[example13.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example13.c) | [example13.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example13.txt)
 
 These example translations are by no means the only reasonable translations
 possible for these programs, but they should serve as a source of ideas
