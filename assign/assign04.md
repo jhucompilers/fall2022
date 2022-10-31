@@ -477,6 +477,11 @@ It's fairly straightforward.
 
 *Information coming soon!*
 
+TODO: new source files needed, new Makefile
+
+TODO: updated operand.h/operand.cpp (needed for `Operand::MREG64_MEM_OFF`
+operands to work correctly)
+
 ## `README.txt`
 
 Please submit a `README.txt` with your submission which briefly discusses anything
