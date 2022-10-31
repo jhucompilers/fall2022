@@ -18,7 +18,7 @@ Oct 19,"Code generation for expressions","lectures/Code_Shape_I_Quick_Intro_to_C
 Oct 20–21,**Fall break (no classes)**,
 Oct 24,"x86-64 assembly language, code generation",lectures/lecture15-public.pdf,,,"[A3](assign/assign03.html) due"
 Oct 26,"Conditions, decisions, and loops","lectures/Code_Shape_III_Boolean_and_Relational_Expressions_+_Control_Flow.pdf",,"EaC 7.8"
-Oct 31,"Arrays and strings","lectures/Code_Shape_II_Arrays_Aggregates_&_Strings.pdf",,"EaC 7.5–7.7",,
+Oct 31,"Arrays and strings","lectures/Code_Shape_II_Arrays_Aggregates_&_Strings.pdf",,"EaC 7.5–7.7, [High-level code generation](lectures/hl_codegen.pdf)",,
 Nov 2,"Attribute grammars","lectures/Context_sensitive_Analysis_I.pdf",,"EaC 4.1–4.3","[A4 MS1](assign/assign04.html) due<br>Fri 11/4"
 Nov 7,"Exam 2",,,
 Nov 9,"<span class='tentative'>Intro to code optimization</span>",,,"<span class='tentative'>EaC 8.1–8.5</span>"
