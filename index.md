@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Nov 2** — [Assignment 4](assign/assign04.html) has been updated with
+  instructions on how to get started on
+  [Milestone 2](assign/assign04.html#milestone-2-x86-64-code-generation).
 * **Oct 30** — [Assignment 4](assign/assign04.html) has been updated with
   a required `Makefile` fix, a required member function in the `SemanticAnalysis`
   class, functions you will need to override in `HighLevelCodegen`
