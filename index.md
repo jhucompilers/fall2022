@@ -31,6 +31,11 @@ and/or Gradescope.
 
 ## News
 
+* **Nov 4** — [Assignment 4](assign/assign04.html) now has reasonably complete
+  information about [Milestone 2](assign/assign04.html#milestone-2-x86-64-code-generation).
+  Also, the [public test repository](https://github.com/jhucompilers/fall2022-tests)
+  can now be used for automated testing, and has a variety of test programs
+  available.
 * **Nov 2** — [Assignment 4](assign/assign04.html) has been updated with
   instructions on how to get started on
   [Milestone 2](assign/assign04.html#milestone-2-x86-64-code-generation).

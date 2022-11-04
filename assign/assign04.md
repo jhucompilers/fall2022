@@ -38,6 +38,10 @@ and instances of struct types.
 [Milestone 2](#milestone-2-x86-64-code-generation)
 has been added.
 
+*Update 11/4*: The [Milestone 2](#milestone-2-x86-64-code-generation) section
+is now fairly complete, contains information about testing and function calls,
+and recommends a development strategy for the low-level code generator.
+
 ## Overview
 
 In this assignment, you will implement code generation, turning
@@ -363,8 +367,6 @@ for your high-level code generator.
 
 ### Hints and tips
 
-*It is possible that this section will be updated.*
-
 *Allocating storage*: As mentioned previously, the `StorageCalculator` class
 can be used to lay out the fields of a struct data type, but it can also
 be used to lay out local variables in a block of memory in the stack frame.
@@ -578,7 +580,7 @@ opcodes:
 
 Note that the `get_ll_operand` ("get low-level operand") function returns an
 low-level `Operand` naming the storage location for a given high-level
-operand. Note that it is passed a `std::shared_ptr` to the low-level
+operand. It is passed a `std::shared_ptr` to the low-level
 `InstructionSequence` because it might be necessary to generate one or more
 low-level instructions in order to create a meaningful low-level operand.
 
@@ -586,7 +588,8 @@ Also note that the generated low-level code uses the `%r10` register
 (or one of its sub-registers) to store a temporary value, to avoid the possibility
 of emitting a `mov` instruction with two memory operands. The `%r10` and
 `%r11` registers are ideal for being used as short-term temporaries in the
-low-level code.
+low-level code, since they are caller-saved, and are not used for arguments
+or return value in function calls.
 
 ### Example low-level translations of test programs
 
@@ -601,8 +604,15 @@ Example program | Example HL translation | Example LL translation
 :-------------: | :--------------------: | :--------------------:
 [example01.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example01.c) | [example01.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example01.txt) | [example01.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example01.S)
 [example02.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example02.c) | [example02.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example02.txt) |  [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example02.S)
+[example05.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example05.c) | [example05.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example05.txt) |  [example05.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example05.S)
+[example09.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example09.c) | [example09.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example09.txt) |  [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example09.S)
+[example10.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example10.c) | [example10.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example10.txt) |  [example10.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example10.S)
+[example12.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example12.c) | [example12.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example12.txt) |  [example12.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example12.S)
+[example16.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example16.c) | [example16.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example16.txt) |  [example16.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example16.S)
 
 These low-level translations may be useful as a reference.
+Note that the test repository has more tests programs and example
+translations.
 
 ### Generating references to virtual registers
 
@@ -627,17 +637,180 @@ both local variables allocated in memory, and the virtual registers used
 for locals and temporaries. You can reserve 8 bytes of local storage for
 each virtual register.
 
-### Running tests
+### Testing your low-level code generator
 
-*More information coming soon!*
+The [public test repository](https://github.com/jhucompilers/fall2022-tests)
+is intended to help you validate your low-level code generator.
+
+Start by making sure that your clone of the test repository is up to date by
+running `git pull`, then change directory into the `assign04` subdirectory.
+
+Set the `ASSIGN04_DIR` environment variable to wherever your compiler project
+is located, e.g.
+
+```
+export ASSIGN04_DIR=~/git/assign04
+```
+
+The `build.rb` script is used to invoke your compiler on a C source file,
+and then assemble and link the code into an executable. You can run
+it using the command
+
+<div class='highlighter-rouge'><pre>
+./build.rb <i>testname</i>
+</pre></div>
+
+where *testname* is the stem of one of the test programs. For example, use
+the command
+
+```
+./build.rb example01
+```
+
+to assemble and link the
+[input/example01.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example01.c)
+test program. The `build.rb` script will create a directory called `out`
+(if it doesn't already exist), and use this directory to store the
+generated assembly languge source code. For example, if you are compiling
+the `example01` test, the file `out/example01.S` will contain the low-level
+code generated by your compiler. If the executable is assembled and linked
+successfully, it will also be in the `out` directory. For the `example01`
+test, the executable will be called `out/example01`, so you could run the
+executable using the command
+
+```
+./out/example01
+```
+
+As with the previous assignments, a script called `run_test.rb` runs
+a test and indicates whether the test passed or failed. So,
+
+```
+./run_test.rb example01
+```
+
+would invoke your compiler on `input/example01.c`, assemble and link the
+generated code, invoke the program (providing input if the test requires it),
+and then check the program exit code and generated output against the
+expected exit code and output. A successful test will look
+something like this:
+
+<div class='highlighter-rouge'><pre>
+$ <b>./run_test.rb example01</b>
+Generated code successfully assembled, output exe is out/example01
+Test passed!
+</pre></div>
+
+If the executable does not exit with the correct exit code (i.e., if it does
+not return the correct value as the return value from the `main` function),
+you will see something like this:
+
+<div class='highlighter-rouge'><pre>
+$ <b>./run_test.rb example01</b>
+Generated code successfully assembled, output exe is out/example01
+Executable exited with exit code 0, expected 3
+</pre></div>
+
+If the executable does not produce the expected output, you will see
+something like this:
+
+<div class='highlighter-rouge'><pre>
+$ <b>./run_test.rb example18</b>
+Generated code successfully assembled, output exe is out/example18
+10a11
+> 0
+Output did not match expected output
+</pre></div>
+
+When the output does not match the expected output, you will see output from
+the `diff` program summarizing which parts of the output did not match.
 
 ### Function calls, "built-in" functions
 
-*More inforamtion coming soon!*
+Function calls should be fairly straightforward to handle, as long as the
+high-level code generator follows the recommendations mentioned previously.
+Each occurrence to the `vr0` result register should be translated to become an
+occurrence to `%rax` or a sub-register, and each occurrence of the `vr1` through
+`vr6` argument registers should become occurrences of the appropriate
+x86-64 argument registers (`%rdi`, `%rsi`, etc.) or sub-registers.
+
+`call` instructions in the high-level code should become `call` instructions
+in the low-level code, with the operand being a label naming the called
+function. In fact, it is sufficient to handle them in the
+low-level code generator as follows:
+
+```c++
+  if (hl_opcode == HINS_call) {
+    ll_iseq->append(new Instruction(MINS_CALL, hl_ins->get_operand(0)));
+    return;
+  }
+```
+
+The `build.rb` script generates some "helper" functions for test programs
+to use to read input values and print output values.  These have the following
+prototypes:
+
+```c
+void print_str(const char *s);
+void print_i32(int n);
+int read_i32(void);
+void print_nl(void);
+```
+
+As long as your compiler can handle function declarations correctly,
+you will not need to do anything special to allow calls to these functions to work.
+
+You can examine the
+[code for the build.rb script](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/build.rb)
+to see the assembly code for these functions.
 
 ### Other hints and tips
 
-*More information coming soon!*
+*Development strategy*. You should develop your low-level code generator
+incrementally. Start with the simplest test program, which is `example01.c`,
+and get it working. Then move on to more complicated ones. The test programs
+are numbered in a way that *roughly* indicates an order from less complex
+to more complex, although there are some exceptions. For example,
+`example14` is a better place to start when working on arrays and array
+subscript operations than `example09`.
+
+*Think very carefully about how local memory storage is addressed.*
+In this version of your compiler, most values will (ultimately) be stored in memory,
+because virtual registers will have their storage allocated in memory.
+You will need to allocate space in memory for the virtual registers, and make
+sure that it does not overlap the memory used for local variables allocated
+in memory (such as arrays and struct instances.)
+
+*Debugging*. You can run `gdb` on an executable that is misbehaving. Step through
+the generated instructions line by line. Inspect values in memory. For example,
+if `-48(%rbp)` contains a 64-bit integer value, you could print it using
+either of the following commands:
+
+```
+print *((long *)($rbp - 48))
+print/x *((long *)($rbp - 48))
+```
+
+The first command would print the value in decimal, and the second in
+hexadecimal.
+
+*Address computations should be 64 bit.* Because pointers are 64 bits, all address
+computations should be 64 bit computations. You will need to think about
+how to ensure this. In a source program, it is quite common for an array
+index to be a 32-bit `int`; for example,
+
+```c
+int n;
+int arr[3];
+n = 0;
+arr[n + 1] = 42;
+```
+
+The reference implementation uses the strategy of generating code for an
+index value using whatever type is appropriate based on the original source
+code, and then promoting that value to 64 bits before it is used to compute
+an address. You will see `movslq` instructions in some of the example low-level
+outputs, where a 32-bit index value is promoted to 64 bits.
 
 ## `README.txt`
 
