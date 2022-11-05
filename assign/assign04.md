@@ -263,7 +263,7 @@ which will be one of the following:
 Also note that for the `uconv` and `sconv` instructions, there are
 two operand size suffixes, describing a promotion from a less precise
 integer type to a more precise integer type. For example, the opcode
-`sconv_bl` would convert an 8-byte signed value to a 32-bit signed
+`sconv_bl` would convert an 8-bit signed value to a 32-bit signed
 value.
 
 Because the target architecture (x86-64) uses 64 bit pointers, you should
