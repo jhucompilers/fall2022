@@ -49,7 +49,7 @@ Oct 26 | [Conditions, decisions, and loops](lectures/Code_Shape_III_Boolean_and_
 Oct 31 | [Arrays and strings](lectures/Code_Shape_II_Arrays_Aggregates_&_Strings.pdf) | EaC 7.5–7.7, [High-level code generation](lectures/hl_codegen.pdf) | 
 Nov 2 | [Attribute grammars](lectures/Context_sensitive_Analysis_I.pdf) | EaC 4.1–4.3, [Low-level code generation](lectures/ll_codegen.pdf) | [A4 MS1](assign/assign04.html) due<br>Fri 11/4
 Nov 7 | Exam 2 |  | 
-Nov 9 | <span class='tentative'>Intro to code optimization</span> | <span class='tentative'>EaC 8.1–8.5</span> | 
+Nov 9 | Intro to code optimization: [slides](lectures/Introduction_to_Optimization_terminology_&_local_value_numbering.pdf), [slides](lectures/Regional_Optimization_Superlocal_Value_Numbering_and_Loop_Unrolling.pdf) | EaC 8.1–8.5 | 
 Nov 14 | <span class='tentative'>Global optimization, instruction selection</span> | <span class='tentative'>EaC 8.6, 11.5</span> | 
 Nov 16 | <span class='tentative'>Local register allocation</span> | <span class='tentative'>EaC 13.1–13.3</span> | [A4 MS2](assign/assign04.html) due<br>Fri 11/18
 Nov 21–25 | **Fall recess (no classes)** |  | 
