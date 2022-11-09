@@ -478,7 +478,7 @@ It's fairly straightforward.
 
 ## Milestone 2: x86-64 code generation
 
-To get started on Milestone 2, download [assign04\_ms2.zip](assign04_ms2.zip).
+To get started on Milestone 2, download [assign04-ms2.zip](assign04-ms2.zip).
 This zipfile contains new and updated code that you will need to do low-level
 code generation.
 
