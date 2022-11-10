@@ -42,6 +42,10 @@ has been added.
 is now fairly complete, contains information about testing and function calls,
 and recommends a development strategy for the low-level code generator.
 
+*Update 11/10*: Added a few more code generation examples to the
+[Milestone 2](#milestone-2-x86-64-code-generation) section, and also described a
+few more "built-in" functions used in the test programs.
+
 ## Overview
 
 In this assignment, you will implement code generation, turning
@@ -609,6 +613,9 @@ Example program | Example HL translation | Example LL translation
 [example10.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example10.c) | [example10.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example10.txt) |  [example10.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example10.S)
 [example12.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example12.c) | [example12.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example12.txt) |  [example12.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example12.S)
 [example16.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example16.c) | [example16.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example16.txt) |  [example16.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example16.S)
+[example23.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example23.c) | [example23.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example23.txt) |  [example23.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example23.S)
+[example25.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example25.c) | [example25.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example25.txt) |  [example25.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example25.S)
+[example27.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/input/example27.c) | [example27.txt](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_highlevel_code/example27.txt) |  [example27.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign04/example_lowlevel_code/example27.S)
 
 These low-level translations may be useful as a reference.
 Note that the test repository has more tests programs and example
@@ -754,7 +761,10 @@ prototypes:
 void print_str(const char *s);
 void print_i32(int n);
 int read_i32(void);
+void print_i64(int n);
+int read_i64(void);
 void print_nl(void);
+void print_space(void);
 ```
 
 As long as your compiler can handle function declarations correctly,
