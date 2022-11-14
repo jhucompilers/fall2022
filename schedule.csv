@@ -18,12 +18,12 @@ Oct 19,"Code generation for expressions","lectures/Code_Shape_I_Quick_Intro_to_C
 Oct 20–21,**Fall break (no classes)**,
 Oct 24,"x86-64 assembly language, code generation",lectures/lecture15-public.pdf,,,"[A3](assign/assign03.html) due"
 Oct 26,"Conditions, decisions, and loops","lectures/Code_Shape_III_Boolean_and_Relational_Expressions_+_Control_Flow.pdf",,"EaC 7.8"
-Oct 31,"Arrays and strings","lectures/Code_Shape_II_Arrays_Aggregates_&_Strings.pdf",,"EaC 7.5–7.7, [High-level code generation](lectures/hl_codegen.pdf)",,
-Nov 2,"Attribute grammars","lectures/Context_sensitive_Analysis_I.pdf",,"EaC 4.1–4.3, [Low-level code generation](lectures/ll_codegen.pdf)","[A4 MS1](assign/assign04.html) due<br>Fri 11/4"
+Oct 31,"[Arrays and strings](lectures/Code_Shape_II_Arrays_Aggregates_&_Strings.pdf), [High-level code generation](lectures/hl_codegen.pdf)",,,"EaC 7.5–7.7",,
+Nov 2,"[Attribute grammars](lectures/Context_sensitive_Analysis_I.pdf), [Low-level code generation](lectures/ll_codegen.pdf)",,,"EaC 4.1–4.3","[A4 MS1](assign/assign04.html) due<br>Fri 11/4"
 Nov 7,"Exam 2",,,
 Nov 9,"Intro to code optimization: [slides](lectures/Introduction_to_Optimization_terminology_&_local_value_numbering.pdf), [slides](lectures/Regional_Optimization_Superlocal_Value_Numbering_and_Loop_Unrolling.pdf)",,,"EaC 8.1–8.5"
-Nov 14,"<span class='tentative'>Global optimization, instruction selection</span>",,,"<span class='tentative'>EaC 8.6, 11.5</span>"
-Nov 16,"<span class='tentative'>Local register allocation</span>",,,"<span class='tentative'>EaC 13.1–13.3</span>","[A4 MS2](assign/assign04.html) due<br>Fri 11/18"
+Nov 14,"[Global optimization/liveness analysis](lectures/Global_Optimization_Live_Analysis.pdf), [Instruction selection](lectures/Introduction_to_Instruction_Selection_and_Peephole_based_Selection.pdf)",,,"EaC 8.6, 11.5"
+Nov 16,"Local register allocation","Local_Register_Allocation_and_Lab_1.pdf",,"EaC 13.1–13.3","[A4 MS2](assign/assign04.html) due<br>Fri 11/18"
 Nov 21–25,**Fall recess (no classes)**,
 Nov 28,"<span class='tentative'>Dataflow analysis</span>",,,"<span class='tentative'>EaC 9.1–9.2, <a href='lectures/kildall-popl73.pdf'>Kildall-POPL73</a></span>",
 Nov 30,"<span class='tentative'>Procedures</span>",,,"<span class='tentative'>EaC Chapter 6</span>"
