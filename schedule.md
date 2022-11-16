@@ -57,4 +57,4 @@ Nov 28 | <span class='tentative'>Dataflow analysis</span> | <span class='tentati
 Nov 30 | <span class='tentative'>Procedures</span> | <span class='tentative'>EaC Chapter 6</span> | 
 Dec 5 | <span class='tentative'>Topic TBD</span> |  | 
 Dec 7 | <span class='tentative'>Topic TBD</span> |  | <span class='tentative'>A5 due Fri 12/9</span>
-TBD | **Exam 3** (location TBD) |  | 
+Dec 16 | **Exam 3**, at 2 pm in Hodson 311 |  | 

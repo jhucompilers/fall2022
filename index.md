@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Nov 16** — Exam 3 will take place at 2pm on Friday, Dec 16th in
+  Hodson 311 (our usual classroom.) Review materials are on the
+  [Resources](resources.html) page.
 * **Nov 4** — [Assignment 4](assign/assign04.html) now has reasonably complete
   information about [Milestone 2](assign/assign04.html#milestone-2-x86-64-code-generation).
   Also, the [public test repository](https://github.com/jhucompilers/fall2022-tests)
