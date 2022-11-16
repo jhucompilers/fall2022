@@ -51,7 +51,7 @@ Nov 2 | [Attribute grammars](lectures/Context_sensitive_Analysis_I.pdf), [Low-le
 Nov 7 | Exam 2 |  | 
 Nov 9 | Intro to code optimization: [slides](lectures/Introduction_to_Optimization_terminology_&_local_value_numbering.pdf), [slides](lectures/Regional_Optimization_Superlocal_Value_Numbering_and_Loop_Unrolling.pdf) | EaC 8.1–8.5 | 
 Nov 14 | [Global optimization/liveness analysis](lectures/Global_Optimization_Live_Analysis.pdf), [Instruction selection](lectures/Introduction_to_Instruction_Selection_and_Peephole_based_Selection.pdf) | EaC 8.6, 11.5 | 
-Nov 16 | [Local register allocation](Local_Register_Allocation_and_Lab_1.pdf), [Code optimization tips](lectures/lecture21-public.pdf) | EaC 13.1–13.3 | [A4 MS2](assign/assign04.html) due<br>Fri 11/18
+Nov 16 | [Local register allocation](lectures/Local_Register_Allocation_and_Lab_1.pdf), [Code optimization tips](lectures/lecture21-public.pdf) | EaC 13.1–13.3 | [A4 MS2](assign/assign04.html) due<br>Fri 11/18
 Nov 21–25 | **Fall recess (no classes)** |  | 
 Nov 28 | <span class='tentative'>Dataflow analysis</span> | <span class='tentative'>EaC 9.1–9.2, <a href='lectures/kildall-popl73.pdf'>Kildall-POPL73</a></span> | 
 Nov 30 | <span class='tentative'>Procedures</span> | <span class='tentative'>EaC Chapter 6</span> | 
