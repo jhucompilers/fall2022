@@ -118,14 +118,64 @@ You will find `TODO` comments in the `generate` member function of the
 `LowLevelCodeGen` class (in `lowlevel_codegen.cpp`) which indicate where
 the high-level and low-level instruction sequences could be transformed.
 
+Here is an idea of what you might want the code of your
+`LowLevelCodeGen::generate` member function to look like:
+
+```c++
+std::shared_ptr<InstructionSequence>
+LowLevelCodeGen::generate(const std::shared_ptr<InstructionSequence> &hl_iseq) {
+  Node *funcdef_ast = hl_iseq->get_funcdef_ast();
+
+  // cur_hl_iseq is the "current" version of the high-level IR,
+  // which could be a transformed version if we are doing optimizations
+  std::shared_ptr<InstructionSequence> cur_hl_iseq(hl_iseq);
+
+  if (m_optimize) {
+    // High-level optimizations
+
+    // Create a control-flow graph representation of the high-level code
+    HighLevelControlFlowGraphBuilder hl_cfg_builder(cur_hl_iseq);
+    std::shared_ptr<ControlFlowGraph> cfg = hl_cfg_builder.build();
+
+    // Do local optimizations
+    LocalOptimizationHighLevel hl_opts(cfg);
+    cfg = hl_opts.transform_cfg();
+
+    // Convert the transformed high-level CFG back to an InstructionSequence
+    cur_hl_iseq = cfg->create_instruction_sequence();
+
+    // The function definition AST might have information needed for
+    // low-level code generation
+    cur_hl_iseq->set_funcdef_ast(funcdef_ast);
+  }
+
+  // Translate (possibly transformed) high-level code into low-level code
+  std::shared_ptr<InstructionSequence> ll_iseq = translate_hl_to_ll(cur_hl_iseq);
+
+  if (m_optimize) {
+    // ...could do transformations on the low-level code, possible peephole
+    //    optimizations...
+  }
+
+  return ll_iseq;
+}
+```
+
+The `LocalOptimizationHighLevel` class mentioned above would be a subclass
+of `ControlFlowGraphTransform`, which would implement local optimizations
+on each basic block in the high-level code. (See the
+[Framework for optimizations](#framework-for-optimizations) section.)
+
 ### Ideas for optmizations to implement
 
 Some ideas for code optimizations:
 
 * Use machine registers for (at least some) local variables, especially loop variables
 * Allocate machine registers for virtual registers
-* Peephole optimization of the high-level code to eliminate redundancies
-  and reduce the number of virtual registers needed
+* Elimination of redundancies and inefficiencies in the high-level code,
+  possibly using local value numbering
+* Elimination of high-level instructions which assign a value to a virtual
+  register whose value is not used subsequently (dead store elimination)
 * Peephole optimization of the generated x86-64 assembly code to eliminate redundancies
 
 The recommended way to approach the implementation of optimizations is
@@ -218,7 +268,8 @@ public:
   MyOptimization(const std::shared_ptr<ControlFlowGraph> &cfg);
   ~MyOptimization();
 
-  virtual void transform_basic_block(BasicBlock *orig_bb, BasicBlock *transformed_bb);
+  virtual std::shared_ptr<InstructionSequence>
+    transform_basic_block(const InstructionSequence *orig_bb);
 };
 
 // in the .cpp file
@@ -231,7 +282,8 @@ MyOptimization::MyOptimization(const std::shared_ptr<ControlFlowGraph> &cfg)
 MyOptimization::~MyOptimization() {
 }
 
-void transform_basic_block(BasicBlock *orig_bb, BasicBlock *transformed_bb) {
+std::shared_ptr<InstructionSequence>
+  MyOptimization::transform_basic_block(const InstructionSequence *orig_bb) {
   // ...
 }
 ```
@@ -249,8 +301,10 @@ for (auto i = orig_bb->cbegin(); i != orig_bb->cend(); ++i) {
 
   if (HighLevel::is_def(orig_ins)) {
     Operand dest = orig_ins->get_operand(0);
+
     LiveVregs::FactType live_after =
       m_live_vregs.get_fact_after_instruction(orig_bb, orig_ins);
+
     if (!live_after.test(dest.get_base_reg()))
       // destination register is dead immediately after this instruction,
       // so it can be eliminated
