@@ -31,6 +31,8 @@ and/or Gradescope.
 
 ## News
 
+* **Nov 18** — [Assignment 5](assign/assign05.html) is available, and is due
+  by 11pm on Friday, Dec 9th.
 * **Nov 16** — Exam 3 will take place at 2pm on Friday, Dec 16th in
   Hodson 311 (our usual classroom.) Review materials are on the
   [Resources](resources.html) page.
