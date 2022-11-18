@@ -3,8 +3,9 @@ layout: default
 title: "Assignment 5"
 ---
 
-*This assignment description is somewhat preliminary, but has enough
-information for you to get started. It will be updated.*
+*This assignment description is fairly complete, but doesn't yet have
+specific examples of optimized code. It will be updated when code examples
+are available.*
 
 **Due date**: Friday, Dec 9th by 11pm
 
