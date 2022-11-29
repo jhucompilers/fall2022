@@ -54,7 +54,7 @@ Nov 14 | [Global optimization/liveness analysis](lectures/Global_Optimization_Li
 Nov 16 | [Local register allocation](lectures/Local_Register_Allocation_and_Lab_1.pdf), [Code optimization tips](lectures/lecture21-public.pdf) | EaC 13.1–13.3 | [A4 MS2](assign/assign04.html) due<br>Fri 11/18
 Nov 21–25 | **Fall recess (no classes)** |  | 
 Nov 28 | [Dataflow analysis](lectures/foster-dataflow.pdf), [Code optimization strategy](lectures/lecture22-public.pdf) | EaC 9.1–9.2, <a href='lectures/kildall-popl73.pdf'>Kildall-POPL73</a> | 
-Nov 30 | <span class='tentative'>Procedures</span> | <span class='tentative'>EaC Chapter 6</span> | 
+Nov 30 | [Static analysis to find bugs](lectures/lecture23-public.pdf) |  | 
 Dec 5 | <span class='tentative'>Topic TBD</span> |  | 
-Dec 7 | <span class='tentative'>Topic TBD</span> |  | <span class='tentative'>A5 due Fri 12/9</span>
+Dec 7 | <span class='tentative'>Topic TBD</span> |  | [A5](assign/assign05.html) due Fri 12/9
 Dec 16 | **Exam 3**, at 2 pm in Hodson 311 |  | 
