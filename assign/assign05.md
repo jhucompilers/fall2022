@@ -294,6 +294,11 @@ of `ControlFlowGraphTransform`. In the `transform_basic_block` function
 you might have code that looks something like this:
 
 ```c++
+// LiveVregs needs a pointer to a BasicBlock object to get a dataflow
+// fact for that basic block
+const BasicBlock *orig_bb_as_basic_block =
+  static_cast<const BasicBlock *>(orig_bb);
+
 std::shared_ptr<InstructionSequence> result_iseq(new InstructionSequence());
 
 for (auto i = orig_bb->cbegin(); i != orig_bb->cend(); ++i) {
@@ -304,7 +309,7 @@ for (auto i = orig_bb->cbegin(); i != orig_bb->cend(); ++i) {
     Operand dest = orig_ins->get_operand(0);
 
     LiveVregs::FactType live_after =
-      m_live_vregs.get_fact_after_instruction(orig_bb, orig_ins);
+      m_live_vregs.get_fact_after_instruction(orig_bb_as_basic_block, orig_ins);
 
     if (!live_after.test(dest.get_base_reg()))
       // destination register is dead immediately after this instruction,
