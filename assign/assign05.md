@@ -3,11 +3,13 @@ layout: default
 title: "Assignment 5"
 ---
 
-*This assignment description is fairly complete, but doesn't yet have
-specific examples of optimized code. It will be updated when code examples
-are available.*
-
 **Due date**: Friday, Dec 9th by 11pm
+
+*Update 12/1*: Added a [Testing](#testing) section, and also the
+[Generated code examples](#generated-code-examples) section.
+Also, the [Analysis and experiments](#analysis-and-experiments)
+and [Report](#report) sections have been updated to more accurately
+document expectations.
 
 ## Overview
 
@@ -66,6 +68,14 @@ sys	0m0.004s
 $ <b>diff expected_output/example29.out actual_output/example29.out</b>
 </pre></div>
 
+Note that the `build.rb` command above would build the *unoptimized* version
+of the test program. To build the *optimized* version, the command should
+be
+
+```
+./build.rb -o example29
+```
+
 Your can substitute other test program names in place of `example29`.
 
 If the `diff` command does not produce any output, then the program's output matched the expected output.
@@ -80,14 +90,45 @@ and so is a good measure of how long it took the compiled program to do
 its computation.  Your code optimizations should aim to reduce user time
 for the benchmark programs.
 
+## Testing
+
+The [assign05](https://github.com/jhucompilers/fall2022-tests/tree/main/assign05)
+directory in the test repository has the same test programs as in
+[Assignment 4](assign04.html). Similar to the other assignments, you will need
+to set the `ASSIGN05_DIR` environment variable to the directory containing
+your compiled compiler program. For Assignment 5, the `build.rb`,
+`run_test.rb`, and `run_all.rb` scripts have been updated so that they
+can take a `-o` command line argument to enable optimizations.
+For example:
+
+```bash
+# build an optimized version of example28
+./build.rb -o example28
+# test the compiler on example28, enabling optimizations
+./run_test.rb -o example28
+# run all tests with optimizations enabled
+./run_all.rb -o
+```
+
+We **highly** recommend running both `./run_all.rb` and `./run_all.rb -o`
+every time you make a change to your compiler. This will help you ensure that
+it continues to work correctly both with and without optimizations
+enabled.
+
 ## Analysis and experiments
 
 As you work on your optimizations, do experiments to see how effective
 they are at improving the efficiency of the generated code.
 
-You can use any test programs as a basis for these experiments.
-One approach is to start with some very simple test programs, and then
-work your way up to the benchmark programs (which are relatively complex.)
+**Ideally**, you should use either the `example29` or `example31`
+programs as the basis for your benchmarking. However,
+you could use any test program as a basis for your experiments,
+as long as it allows you to demonstrate a substantial improvement
+in the quality of the generated code.
+
+As you work on optimizations, you could start with some very simple test
+programs, and then work your way up to the benchmark programs (which
+are relatively complex.)
 
 ## Report
 
@@ -106,6 +147,11 @@ For each optimization technique you implemented, your report should document
 Your report should also discuss what inefficiencies remain in the
 generated code, and what optimization techniques might be helpful for
 addressing them.
+
+Please make a substantial effort to demonstrate improvements on
+"realistic" programs.  As mentioned above, `example29` and
+`example31` are good candidates because they perform a substantial
+and realistic computation.
 
 ## Hints and suggestions
 
@@ -329,7 +375,54 @@ register which is immediately dead.
 
 ### Generated code examples
 
-Coming soon!
+The public test repository contains examples of unoptimized and optimized
+code generated for the test programs.  Here are a few selections (see the
+test repository for the full set):
+
+Test program | HL unopt | HL opt | LL unopt | LL opt
+------------ | -------- | ------ | -------- | ------
+[example02.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example02.c) | [example02.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example02.out) | [example02.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example02.out) | [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example02.S) | [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example02.S)
+[example09.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example09.c) | [example09.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example09.out) | [example09.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example09.out) | [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example09.S) | [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example09.S)
+[example28.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example28.c) | [example28.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example28.out) | [example28.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example28.out) | [example28.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example28.S) | [example28.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example28.S)
+[example29.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example29.c) | [example29.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example29.out) | [example29.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example29.out) | [example29.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example29.S) | [example29.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example29.S)
+[example30.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example30.c) | [example30.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example30.out) | [example30.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example30.out) | [example30.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example30.S) | [example30.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example30.S)
+[example31.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example31.c) | [example31.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example31.out) | [example31.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example31.out) | [example31.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example31.S) | [example31.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example31.S)
+
+The optimizations implemented are:
+
+* Global assignment of callee-saved registers to local variables
+  (with ranking placing higher priority on variables used in loops)
+* Two iterations of
+  * Constant propagation
+  * Local value numbering and replacement of redundant computations with
+    copies of previously computed values
+  * Copy propagation
+  * Removal of instructions in which the destination operand is immediately dead
+* Local register allocation (using all argument registers that aren't needed
+  for function calls)
+
+Note that the selection of low level instructions isn't particularly good,
+and the generated low-level code could be significantly improved with
+some peephole optimization to rewrite instances of inefficient idioms.
+For example, the optimized code for Example 28 has the sequence
+
+```
+movq     %r10, %r9
+movq     %r9, %r10
+```
+
+As a measure of the improvement in runtime performance, these are the
+running times (Linux on a Core i7-4790K CPU, averaged over 3 runs) of the
+[Example 29](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example29.c)
+test program, which multiplies two 500x500 matrices of `long` values:
+
+Version | Average running time
+------- | --------------------
+Unoptimized | 1.57 s
+Optimized | 0.46 s
+
+This is a pretty good speedup, but it must be acknowledged that the original
+unoptimized code was pretty awful.
 
 ## Submitting
 

@@ -31,6 +31,9 @@ and/or Gradescope.
 
 ## News
 
+* **Dec 1** — [Assignment 5](assign/assign05.html) has been updated with
+  examples of optimized generated code, more information about testing
+  your optimizations, and the expectations for the experiments and report.
 * **Nov 18** — [Assignment 5](assign/assign05.html) is available, and is due
   by 11pm on Friday, Dec 9th.
 * **Nov 16** — Exam 3 will take place at 2pm on Friday, Dec 16th in
