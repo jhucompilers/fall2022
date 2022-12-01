@@ -5,7 +5,7 @@ title: "Assignment 5"
 
 **Due date**: Friday, Dec 9th by 11pm
 
-*Update 12/1*: Added a [Testing](#testing) section, and also the
+*Update 12/1*: Added a [Testing](#testing) section, and also filled in the
 [Generated code examples](#generated-code-examples) section.
 Also, the [Analysis and experiments](#analysis-and-experiments)
 and [Report](#report) sections have been updated to more accurately
