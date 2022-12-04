@@ -31,6 +31,10 @@ and/or Gradescope.
 
 ## News
 
+* **Dec 3** — [Assignment 5](assign/assign05.html) has been updated with
+  *entirely optional* information about implementing
+  [peephole optimizations](assign/assign05.html#peephole-optimization)
+  to improve the quality of generated low-level code.
 * **Dec 1** — [Assignment 5](assign/assign05.html) has been updated with
   examples of optimized generated code, more information about testing
   your optimizations, and the expectations for the experiments and report.

@@ -11,6 +11,12 @@ Also, the [Analysis and experiments](#analysis-and-experiments)
 and [Report](#report) sections have been updated to more accurately
 document expectations.
 
+*Update 12/3*: Updated [Generated code examples](#generated-code-examples)
+and added a [Peephole optimization](#peephole-optimization) section.
+This information could be useful if you are interested in implementing
+transformations to improve the quality of the idioms used in the generated
+low-level code.
+
 ## Overview
 
 In this assignment, you will implement optimizations to improve the target code quality
@@ -379,14 +385,14 @@ The public test repository contains examples of unoptimized and optimized
 code generated for the test programs.  Here are a few selections (see the
 test repository for the full set):
 
-Test program | HL unopt | HL opt | LL unopt | LL opt
------------- | -------- | ------ | -------- | ------
-[example02.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example02.c) | [example02.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example02.out) | [example02.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example02.out) | [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example02.S) | [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example02.S)
-[example09.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example09.c) | [example09.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example09.out) | [example09.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example09.out) | [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example09.S) | [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example09.S)
-[example28.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example28.c) | [example28.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example28.out) | [example28.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example28.out) | [example28.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example28.S) | [example28.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example28.S)
-[example29.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example29.c) | [example29.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example29.out) | [example29.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example29.out) | [example29.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example29.S) | [example29.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example29.S)
-[example30.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example30.c) | [example30.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example30.out) | [example30.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example30.out) | [example30.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example30.S) | [example30.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example30.S)
-[example31.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example31.c) | [example31.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example31.out) | [example31.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example31.out) | [example31.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example31.S) | [example31.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example31.S)
+Test program | HL unopt | HL opt | LL unopt | LL opt | LL peep
+------------ | -------- | ------ | -------- | ------ | -------
+[example02.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example02.c) | [example02.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example02.out) | [example02.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example02.out) | [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example02.S) | [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example02.S) | [example02.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_peep/example02.S)
+[example09.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example09.c) | [example09.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example09.out) | [example09.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example09.out) | [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example09.S) | [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example09.S) | [example09.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_peep/example09.S)
+[example28.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example28.c) | [example28.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example28.out) | [example28.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example28.out) | [example28.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example28.S) | [example28.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example28.S) | [example28.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_peep/example28.S)
+[example29.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example29.c) | [example29.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example29.out) | [example29.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example29.out) | [example29.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example29.S) | [example29.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example29.S) | [example29.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_peep/example29.S)
+[example30.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example30.c) | [example30.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example30.out) | [example30.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example30.out) | [example30.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example30.S) | [example30.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example30.S) | [example30.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_peep/example30.S)
+[example31.c](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example31.c) | [example31.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code/example31.out) | [example31.out](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_highlevel_code_opt/example31.out) | [example31.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code/example31.S) | [example31.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_opt/example31.S) | [example31.S](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/example_lowlevel_code_peep/example31.S)
 
 The optimizations implemented are:
 
@@ -401,18 +407,21 @@ The optimizations implemented are:
 * Local register allocation (using all argument registers that aren't needed
   for function calls)
 
-Note that the selection of low level instructions isn't particularly good,
-and the generated low-level code could be significantly improved with
-some peephole optimization to rewrite instances of inefficient idioms.
-For example, the optimized code for Example 28 has the sequence
+In addition, the "LL peep" column shows the generated code with
+low-level peephole optimizations enabled. These optimizations replace
+less-efficient idioms in the generated low-level code with better
+idioms, including
 
-```
-movq     %r10, %r9
-movq     %r9, %r10
-```
+* use of index/scaled addressing mode for array element references
+* loop conditions emitted using `cmp` followed immediately by a conditional jump
+* elimination of unnecessary intermediate registers in arithmetic
+
+See the [Peephole optimization](#peephole-optimization) section for some
+additional information about peephole optimization.
 
 As a measure of the improvement in runtime performance, these are the
-running times (Linux on a Core i7-4790K CPU, averaged over 3 runs) of the
+running times (Linux on a Core i7-4790K CPU, averaged over 3 runs,
+output redirected to `/dev/null`) of the
 [Example 29](https://github.com/jhucompilers/fall2022-tests/blob/main/assign05/input/example29.c)
 test program, which multiplies two 500x500 matrices of `long` values:
 
@@ -420,9 +429,107 @@ Version | Average running time
 ------- | --------------------
 Unoptimized | 1.57 s
 Optimized | 0.46 s
+Optimized (peephole) | 0.28 s
+gcc (-O2 optimization) | 0.12 s
 
-This is a pretty good speedup, but it must be acknowledged that the original
-unoptimized code was pretty awful.
+The optimized code without peephole optimization is clearly much more efficient,
+although given the very poor quality of the unoptimized code, this isn't too
+surprising.
+
+The optimized code with low-level peephole optimizations used to improve
+instruction selection does signficantly better, although the same code
+compiled using `gcc` with the `-O2` optimization level is still more than
+twice as fast.
+
+### Peephole optimization
+
+**Note**: This section is here just in case anyone is interested in trying
+to improve their compiler's instruction selection using low-level peephole
+optimization.  You are **not** expected to implement this, and the
+code linked here should be considered to be experimental and very possibly
+incorrect. You are absolutely free to ignore this section.
+
+*Peephole optimization* is a fairly simple idea. A peephole optimizer
+considers sequences of generated instructions, matching them against
+patterns. When a pattern is matched, it is used to generate a more
+efficient sequence of instructions.  The pattern can match opcodes
+and/or operands in the original instruction sequence, in order
+to preserve the semantics of the original sequence.
+
+Here is an example of a peephole optimization implemented in the
+reference solution:
+
+```c++
+  // Simplify 32 to 64 bit signed conversions
+  pm(
+    // match instructions
+    {
+      matcher( m_opcode(MINS_MOVL),   { m_mreg(A), m_mreg(B) } ),
+      matcher( m_opcode(MINS_MOVSLQ), { m_mreg(B), m_mreg(C) } ),
+      matcher( m_opcode(MINS_MOVQ),   { m_mreg(C), m_mreg(D) } ),
+    },
+
+    // rewrite
+    {
+      gen( g_opcode(MINS_MOVSLQ), { g_prev(A), g_prev(D) } ),
+    },
+
+    // Make sure B and C are dead afterwards
+    "BC"
+  ),
+```
+
+The idea in this code is that the `pm` function creates a peephole
+sequence matcher. The first sequences of `matcher` objects matches
+a specific sequence of instructions which implement a signed
+conversion of a 32 bit integer to a 64 bit integer. When this
+sequence is matched, it can be replaced by a single `movslq`
+instruction.  However, because the original instruction sequence
+defined values stored in the machine registers referred to by
+the names `B` and `C` in the pattern, it is not correct to perform
+the transformation unless the peephole optimizer knows that the
+values in the machine registers matched by `B` and `C` are not
+alive after the original sequence executes.
+
+The original starter code includes an implementation of liveness
+analysis for virtual registers in the high-level code.
+If you are interested in using liveness information for machine
+registers in the low-level code, which is helpful for determining
+when low-level peephole optimizations are safe to apply, you can
+try out the following code:
+
+* [assign05-peep.zip](assign05-peep.zip)
+
+As mentioned above, this code should be considered to be experimental.
+You really should only be thinking about using it if you already
+have a good set of optimizations implemented, and you should
+**definitely** not predicate any critical functionality in your compiler
+on the assumption that this code will work correctly. You have
+been warned! Having said that, it has been tested to some extent,
+and seems to work to a reasonable degree.
+
+The `live_mregs.h`, `lowlevel_defuse.h`, and `lowlevel_defuse.cpp`
+implement the liveness analysis for machine registers in the low-level
+code. Also, the updated versions of `instruction.h` and
+`instruction.cpp` contain new member functions which are needed.
+The other files are optional, but contain some useful
+improvements including adding support for the indexed/scaled
+addressing mode, which is useful for array element access.
+
+Note that the low-level def/use code assumes that `MINS_call`
+instructions have a pointer to the `Symbol` object representing
+the function being called. This is necessary in order to determine
+which argument registers are used. You will need to modify the
+`Instruction` class to support this, or implement some other
+mechanism to allow the analysis to know which machine registers
+are used by `call` instructions.
+
+The "interesting" aspect of implementing peephole optimization is
+implementing the pattern matching engine. The code example shown above
+shows that peephole transformations can be specified declaratively,
+which makes it relatively easy to add new patterns. However, it is
+very possible to implement peephole sequence matching using ad-hoc
+code.
 
 ## Submitting
 
