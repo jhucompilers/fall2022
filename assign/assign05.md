@@ -17,6 +17,11 @@ This information could be useful if you are interested in implementing
 transformations to improve the quality of the idioms used in the generated
 low-level code.
 
+*Update 12/4*: A few additional peephole instruction selection optimizations
+have been enabled in code generation examples. Also,
+`lowlevel_defuse.cpp` was updated so that the destination operand in `leaq`
+and `popq` instructions is not erroneously treated as a use.
+
 ## Overview
 
 In this assignment, you will implement optimizations to improve the target code quality
@@ -429,7 +434,7 @@ Version | Average running time
 ------- | --------------------
 Unoptimized | 1.57 s
 Optimized | 0.46 s
-Optimized (peephole) | 0.28 s
+Optimized (peephole) | 0.24 s
 gcc (-O2 optimization) | 0.12 s
 
 The optimized code without peephole optimization is clearly much more efficient,
@@ -438,7 +443,7 @@ surprising.
 
 The optimized code with low-level peephole optimizations used to improve
 instruction selection does signficantly better, although the same code
-compiled using `gcc` with the `-O2` optimization level is still more than
+compiled using `gcc` with the `-O2` optimization level is still about
 twice as fast.
 
 ### Peephole optimization
