@@ -521,6 +521,42 @@ The other files are optional, but contain some useful
 improvements including adding support for the indexed/scaled
 addressing mode, which is useful for array element access.
 
+If you choose to implement low-level peephole optimization, a recommended
+approach is to implement it as a subclass of `ControlFlowGraphTransform`.
+You'll need to build a low-level CFG from the low-level `InstructionSequence`.
+This code might look something like the following:
+
+```c++
+LowLevelControlFlowGraphBuilder ll_cfg_builder(ll_iseq); 
+std::shared_ptr<ControlFlowGraph> ll_cfg = ll_cfg_builder.build();
+```
+
+It's normal for multiple rounds of peephole optimization to be
+necessary. So, you might do something like this:
+
+```c++
+bool done = false;
+while (!done) {
+  PeepholeLowLevel peephole_ll(ll_cfg);
+  ll_cfg = peephole_ll.transform_cfg();
+
+  if (peephole_ll.get_num_matched() == 0)
+    done = true;
+}
+```
+
+The code above assumes that the `PeepholeLowLevel` class has a member
+function that returns the number of idioms matched. When this is 0,
+it means there are no remaining idioms in the low-level code that
+can be replaced.
+
+The `create_instruction_sequence()` member function can be used to
+turn the low-level control flow graph back into an `InstructionSequence`:
+
+```c++
+ll_iseq = ll_cfg.create_instruction_sequence();
+```
+
 Note that the low-level def/use code assumes that `MINS_call`
 instructions have a pointer to the `Symbol` object representing
 the function being called. This is necessary in order to determine
